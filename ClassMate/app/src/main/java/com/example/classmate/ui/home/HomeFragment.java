@@ -1,5 +1,6 @@
 package com.example.classmate.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +11,39 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.classmate.R;
 import com.example.classmate.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private FirebaseAuth mAuth;
+// ...
+// Initialize Firebase Auth
 
+    TextView title;
+
+    @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        mAuth = FirebaseAuth.getInstance();
 
-        return binding.getRoot();
+        title = view.findViewById(R.id.homeTitle);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userEmail = user.getEmail();
+            title.setText("Welcome " + userEmail);
+        } else {
+            // No user is signed in
+        }
+
+        return view;
     }
 
     @Override
