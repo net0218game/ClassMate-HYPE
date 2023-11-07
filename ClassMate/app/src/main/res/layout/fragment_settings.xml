@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="56dp"        android:id="@+id/text_home"
-
+    android:paddingBottom="56dp"
+    android:id="@+id/text_home"
+    android:layout_margin="10dp"
     tools:context=".ui.settings.SettingsFragment"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -168,5 +170,12 @@
 
 
     </LinearLayout>
+
+    <Switch
+        android:id="@+id/nightmodeSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Night Mode" />
 
 </LinearLayout>

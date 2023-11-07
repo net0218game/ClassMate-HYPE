@@ -1,5 +1,6 @@
 package com.example.classmate.ui.settings;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -13,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 
 import com.example.classmate.R;
 import com.example.classmate.ui.login.LoginActivity;
@@ -35,6 +38,7 @@ public class SettingsFragment extends Fragment {
 
         Button loginBtn = view.findViewById(R.id.loginButton);
         Button logoutBtn = view.findViewById(R.id.logoutButton);
+        Switch nightmodeSwitch = view.findViewById(R.id.nightmodeSwitch);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +56,28 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        nightmodeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    nightmodeSwitch.setText("Night Mode");
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    nightmodeSwitch.setText("Light Mode");
+                }
+            }
+        });
+
+        boolean isNightModeOn = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+        nightmodeSwitch.setChecked(isNightModeOn);
+        if(isNightModeOn) {
+            nightmodeSwitch.setText("Night Mode");
+        } else {
+            nightmodeSwitch.setText("Light Mode");
+        }
+
         return view;
     }
 

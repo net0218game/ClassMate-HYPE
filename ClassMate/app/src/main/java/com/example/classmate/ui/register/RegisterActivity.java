@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
-    EditText emailInput, passwordInput;
+    EditText emailInput, passwordInput, confirmPasswordInput;
     Button registerButton;
     ProgressBar progressBar;
 
@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.registerEmailInput);
         passwordInput = findViewById(R.id.registerPasswordInput);
+        confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         registerButton = findViewById(R.id.registerButton);
         progressBar = findViewById(R.id.registerLoading);
 
@@ -66,31 +67,35 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Enter your password to register.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())) {
+                    // https://firebase.google.com/docs/auth/android/password-auth#java_2
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        progressBar.setVisibility(View.GONE);
 
-                // https://firebase.google.com/docs/auth/android/password-auth#java_2
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(RegisterActivity.this, "Accouunt Created", Toast.LENGTH_SHORT).show();
 
-                                    Toast.makeText(RegisterActivity.this, "Accouunt Created", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
 
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-
-                                } else {
-                                    progressBar.setVisibility(View.GONE);
-                                    Log.w(TAG, "registerInWithEmail:failure", task.getException());
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        progressBar.setVisibility(View.GONE);
+                                        Log.w(TAG, "registerInWithEmail:failure", task.getException());
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Confirm Password Incorrect", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         });
     }
