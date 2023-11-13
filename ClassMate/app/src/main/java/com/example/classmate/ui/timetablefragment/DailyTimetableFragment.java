@@ -62,15 +62,13 @@ public class DailyTimetableFragment extends Fragment {
         String[] orak = {"Matek", "Angol", "Info", "Töri", "Magyar", "Tesi", "Német", "Fizika"};
         RecyclerView.Adapter<ClassAdapter.ViewHolder> adapter = new ClassAdapter(orak);
 
-        // Set the LayoutManager that
-        // this RecyclerView will use.
+        // LayoutManager beallitasa RecyclerView-hoz.
         RecyclerView recyclerView
                 = view.findViewById(R.id.timetable_recycler_view);
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(getContext()));
 
-        // adapter instance is set to the
-        // recyclerview to inflate the items.
+        // adapter beallitasa
         recyclerView.setAdapter(adapter);
 
         return view;

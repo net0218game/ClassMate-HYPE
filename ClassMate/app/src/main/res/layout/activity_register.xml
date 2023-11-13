@@ -24,7 +24,6 @@
         android:textSize="40dp"
         android:textStyle="bold" />
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +35,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:hint="Email Adress"
+            android:hint="Email Address"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/round_person_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:hint="Name"
             android:selectAllOnFocus="true"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,7 +117,6 @@
         android:layout_marginBottom="20dp"
         android:text="@string/action_sign_in_short" />
 
-
     <ProgressBar
         android:id="@+id/registerLoading"
         android:layout_width="wrap_content"
@@ -122,6 +136,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
-
 
 </LinearLayout>
