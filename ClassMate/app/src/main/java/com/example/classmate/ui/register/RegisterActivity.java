@@ -93,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     // nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
                                     dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
                                     // felhasznalo IDjevel rogziti a nevet databaseben
-                                    dbReference.child("Users").child(user.getUid()).setValue(userAdapter).addOnFailureListener(new OnFailureListener() {
+                                    dbReference.child("Adatok/Users").child(user.getUid()).setValue(userAdapter).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             Log.d("adatbazis", e.toString());
