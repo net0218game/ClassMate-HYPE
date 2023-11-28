@@ -10,7 +10,6 @@
     android:layout_margin="10dp"
     tools:context=".ui.AddClassActivity">
 
-
     <TextView
         android:id="@+id/textView13"
         android:layout_width="match_parent"
@@ -21,17 +20,65 @@
         android:textSize="30dp" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/subjectsSpinnerLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/baseline_menu_book_24"
+        android:hint="Subject">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/subjectTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            tools:ignore="KeyboardInaccessibleWidget" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:startIconDrawable="@drawable/baseline_menu_book_24">
+        app:startIconDrawable="@drawable/baseline_location_on_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/classClassName"
+            android:id="@+id/classClassroom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:hint="Class"
+            android:hint="Classroom"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/daysSpinnerLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/baseline_calendar_month_24"
+        android:hint="Day">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/dayTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            tools:ignore="KeyboardInaccessibleWidget" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/baseline_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/classStartTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:hint="Start Time"
             android:selectAllOnFocus="true"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -40,33 +87,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:startIconDrawable="@drawable/round_person_24">
+        app:startIconDrawable="@drawable/baseline_access_time_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/classTeacher"
+            android:id="@+id/classEndTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:hint="Teacher"
+            android:hint="End Time"
             android:selectAllOnFocus="true"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:startIconDrawable="@drawable/baseline_notes_24">
+        android:visibility="gone"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/classNote"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:hint="Note"
-            android:selectAllOnFocus="true"
-            android:singleLine="false" />
-    </com.google.android.material.textfield.TextInputLayout>
+
+            android:layout_weight="1"
+            android:text="Time"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7:55" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="-"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:40" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/addClassButton"
@@ -75,7 +144,6 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:text="Add Class" />
-
 
     <ProgressBar
         android:id="@+id/addClassLoading"

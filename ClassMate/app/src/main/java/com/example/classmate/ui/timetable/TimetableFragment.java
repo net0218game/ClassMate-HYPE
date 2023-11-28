@@ -1,6 +1,5 @@
 package com.example.classmate.ui.timetable;
 
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -19,7 +17,7 @@ import android.view.ViewGroup;
 import com.example.classmate.R;
 import com.example.classmate.ViewPagerAdapter;
 import com.example.classmate.ui.AddClassActivity;
-import com.example.classmate.ui.login.LoginActivity;
+import com.example.classmate.ui.AddSubjectActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -45,7 +43,7 @@ public class TimetableFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager2 = view.findViewById(R.id.viewPager2);
         // Set the adapter for the viewpager
-        myviewPagerAdapter = new ViewPagerAdapter(this.getActivity());
+        myviewPagerAdapter = new ViewPagerAdapter(this.requireActivity());
         viewPager2.setAdapter(myviewPagerAdapter);
 
         addClassButton = view.findViewById(R.id.floatingActionButton);
@@ -77,7 +75,7 @@ public class TimetableFragment extends Fragment {
         addClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (getActivity(), AddClassActivity.class);
+                Intent intent = new Intent (getActivity(), AddSubjectActivity.class);
                 startActivity(intent);
             }
         });

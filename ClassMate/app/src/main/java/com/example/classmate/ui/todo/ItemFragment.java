@@ -20,15 +20,10 @@ import com.example.classmate.ui.todo.placeholder.PlaceholderContent;
  */
 public class ItemFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+    // TODO: valtoztatni lehessen hogy 2 sorban vagy egyben legyenek felsorolva az itemek
     private int mColumnCount = 1;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public ItemFragment() {
     }
 

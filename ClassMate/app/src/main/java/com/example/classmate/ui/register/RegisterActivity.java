@@ -34,7 +34,6 @@ import java.util.Objects;
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-
     EditText emailInput, passwordInput, confirmPasswordInput, nameInput;
     Button registerButton;
     ProgressBar progressBar;

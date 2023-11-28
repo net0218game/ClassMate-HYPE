@@ -1,39 +1,56 @@
 package com.example.classmate.interfaces;
 
 public class TimetableClass {
-    String className, teacher, note;
+    String subject, classroom, day, start, end;
 
-
-    public TimetableClass(String className, String teacher, String note) {
-        this.className = className;
-        this.teacher = teacher;
-        this.note = note;
+    public TimetableClass(String subject, String classroom, String day, String start, String end) {
+        this.subject = subject;
+        this.classroom = classroom;
+        this.day = day;
+        this.start = start;
+        this.end = end;
     }
 
     public TimetableClass() {
     }
 
-    public String getClassName() {
-        return className;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public String getTeacher() {
-        return teacher;
+    public String getClassroom() {
+        return classroom;
     }
 
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
     }
 
-    public String getNote() {
-        return note;
+    public String getDay() {
+        return day;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
     }
 }
