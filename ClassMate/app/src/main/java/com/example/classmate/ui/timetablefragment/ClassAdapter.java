@@ -4,6 +4,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.classmate.R;
+import com.example.classmate.ui.dialog.EditClassDialog;
 
 import java.util.ArrayList;
 
@@ -46,22 +48,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             // TODO: Ora kattintas implementalasa
             // https://developer.android.com/develop/ui/views/components/dialogs
 
-            new AlertDialog.Builder(v.getContext())
-                    .setTitle("Delete entry")
-                    .setMessage("Are you sure you want to delete this entry?")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Continue with delete operation
-                        }
-                    })
-
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+            EditClassDialog alert = new EditClassDialog();
+            alert.showDialog((Activity) v.getContext(), "Error de conexión al servidor");
         }
     }
 
