@@ -30,4 +30,8 @@ public class EditClassDialog {
         dialog.show();
 
     }
+
+    public void getData() {
+
+    }
 }

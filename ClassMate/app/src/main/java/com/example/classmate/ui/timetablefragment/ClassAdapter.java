@@ -51,35 +51,9 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             // TODO: Ora kattintas implementalasa
             // https://developer.android.com/develop/ui/views/components/dialogs
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle(this.classTitle.getText());
-
-            // Set up the input
-            final EditText classroom = new EditText(v.getContext());
-
-            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            classroom.setInputType(InputType.TYPE_CLASS_TEXT);
-            builder.setView(classroom);
-
-            // Set up the buttons
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    m_Text = classroom.getText().toString();
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-
-            builder.show();
-
             EditClassDialog alert = new EditClassDialog();
-            alert.showDialog((Activity) v.getContext(), "Error de conexión al servidor");
-
+            alert.showDialog((Activity) v.getContext(), "Edit " + this.classTitle.getText());
+            
         }
     }
 
