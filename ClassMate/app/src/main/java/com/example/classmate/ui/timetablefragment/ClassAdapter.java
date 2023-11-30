@@ -4,6 +4,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputType;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.classmate.R;
+import com.example.classmate.ui.dialog.EditClassDialog;
 
 import java.util.ArrayList;
 
@@ -74,6 +76,10 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             });
 
             builder.show();
+
+            EditClassDialog alert = new EditClassDialog();
+            alert.showDialog((Activity) v.getContext(), "Error de conexión al servidor");
+
         }
     }
 
