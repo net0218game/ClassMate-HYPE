@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,29 +41,39 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             classCard = view.findViewById(R.id.classCard);
         }
 
+        private String m_Text = "";
+
         @Override
         public void onClick(View v) {
             int position = this.getAbsoluteAdapterPosition();
-            Log.d("pozicio", String.valueOf(position));
             // TODO: Ora kattintas implementalasa
             // https://developer.android.com/develop/ui/views/components/dialogs
 
-            new AlertDialog.Builder(v.getContext())
-                    .setTitle("Delete entry")
-                    .setMessage("Are you sure you want to delete this entry?")
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle(this.classTitle.getText());
 
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Continue with delete operation
-                        }
-                    })
+            // Set up the input
+            final EditText classroom = new EditText(v.getContext());
 
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            classroom.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(classroom);
+
+            // Set up the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    m_Text = classroom.getText().toString();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
         }
     }
 
@@ -92,6 +104,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         viewHolder.classCard.setCardBackgroundColor(Integer.parseInt(localDataSet.get(position).get(7)));
         viewHolder.classCard.setOnClickListener(viewHolder);
 
+        Log.d("orarend pozicio", localDataSet.get(position).get(8));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

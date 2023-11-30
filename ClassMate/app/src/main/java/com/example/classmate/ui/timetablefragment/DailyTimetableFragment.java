@@ -35,9 +35,6 @@ import java.util.Objects;
 
 public class DailyTimetableFragment extends Fragment {
     TabLayout tabLayout;
-    ViewPager2 viewPager2;
-    ViewPagerAdapter myviewPagerAdapter;
-    TextView title;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     ArrayList<ArrayList<String>> orak = new ArrayList<ArrayList<String>>();
@@ -99,6 +96,7 @@ public class DailyTimetableFragment extends Fragment {
                             ora.add(5, Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString());
                             ora.add(6, Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString());
                             ora.add(7, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString());
+                            ora.add(8, Objects.requireNonNull(snapshot.child("Classes/" + user.getUid())).toString());
 
                             Log.d("orarend", "Egyezes" + days[tabLayout.getSelectedTabPosition()] + ora);
                             orak.add(ora);
