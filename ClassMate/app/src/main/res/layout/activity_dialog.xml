@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:editable="false"
             tools:ignore="KeyboardInaccessibleWidget" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,21 +122,6 @@
             android:text="8:40" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/editClassButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
-        android:text="Edit Class" />
-
-    <Button
-        android:id="@+id/cancelEditButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Cancel" />
-
     <ProgressBar
         android:id="@+id/addClassLoading"
         android:layout_width="wrap_content"
@@ -149,5 +135,37 @@
         app:layout_constraintStart_toStartOf="@+id/loginPasswordInput"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:drawableLeft="@drawable/outline_cancel_24"
+            android:drawableTint="@color/white"
+            android:drawableTintMode="multiply"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/editClassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/outline_edit_24"
+            android:drawableTint="@color/white"
+            android:layout_marginLeft="20dp"
+            android:text="Edit Class" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

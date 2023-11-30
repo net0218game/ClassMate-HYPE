@@ -96,7 +96,8 @@ public class DailyTimetableFragment extends Fragment {
                             ora.add(5, Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString());
                             ora.add(6, Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString());
                             ora.add(7, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString());
-                            ora.add(8, Objects.requireNonNull(snapshot.child("Classes/" + user.getUid())).toString());
+                            ora.add(8, Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent().getKey()).toString());
+
 
                             Log.d("orarend", "Egyezes" + days[tabLayout.getSelectedTabPosition()] + ora);
                             orak.add(ora);

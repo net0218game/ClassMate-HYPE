@@ -30,13 +30,31 @@
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/time"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="7:55 - 8:40"
-                android:textSize="20dp" />
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/startTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7:55"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8:40"
+                    android:textSize="20dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
