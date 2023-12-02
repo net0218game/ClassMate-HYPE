@@ -1,6 +1,8 @@
 package com.example.classmate.ui;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,14 +47,12 @@ public class AddClassActivity extends AppCompatActivity {
 
         addClassButton = findViewById(R.id.addClassButton);
 
-        //UI reference of textView
         final AutoCompleteTextView subjectSpinner = findViewById(R.id.subjectTextView);
         final AutoCompleteTextView daySpinner = findViewById(R.id.dayTextView);
         TextInputEditText classroomInput = findViewById(R.id.classClassroom);
         TextInputEditText startInput = findViewById(R.id.classStartTime);
         TextInputEditText endInput = findViewById(R.id.classEndTime);
 
-        // create list of customer
         ArrayList<String> subjectList = getSubjectList();
         ArrayList<String> dayList = getDayList();
 
@@ -79,7 +79,7 @@ public class AddClassActivity extends AppCompatActivity {
 
                 TimetableClass timetableClass = new TimetableClass(subject, classroom, day, start, end);
 
-                // :) nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
+                // nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
                 dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
                 // felhasznalo IDjevel rogziti a nevet databaseben
                 assert user != null;
@@ -104,8 +104,7 @@ public class AddClassActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
-    private ArrayList<String> getSubjectList()
-    {
+    private ArrayList<String> getSubjectList() {
         ArrayList<String> subjects = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {

@@ -80,10 +80,9 @@ public class DailyTimetableFragment extends Fragment {
     }
 
     public void timetable() {
-        orak.clear();
-
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                orak.clear();
                 if(snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
                         if (Objects.requireNonNull(classDataSnapshot.child("day").getValue()).toString().equals(days[tabLayout.getSelectedTabPosition()])) {
@@ -96,22 +95,20 @@ public class DailyTimetableFragment extends Fragment {
                             ora.add(5, Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString());
                             ora.add(6, Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString());
                             ora.add(7, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString());
-                            ora.add(8, Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent().getKey()).toString());
-
+                            ora.add(8, Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent()).getKey()));
 
                             Log.d("orarend", "Egyezes" + days[tabLayout.getSelectedTabPosition()] + ora);
                             orak.add(ora);
-                            recyclerView.getAdapter().notifyDataSetChanged();
                         }
                     }
                 }
+
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        orak.clear();
-
     }
 }

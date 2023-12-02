@@ -29,7 +29,7 @@ public class EditClassDialog {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.activity_dialog);
+        dialog.setContentView(R.layout.edit_class_dialog);
 
         Log.d("orarend ID", id);
 
@@ -75,10 +75,6 @@ public class EditClassDialog {
         });
 
         dialog.show();
-
-    }
-
-    public void getData() {
 
     }
 }
