@@ -1,15 +1,16 @@
 package com.example.classmate.interfaces;
 
 public class TodoItem {
-    String title, subject, dueDate, description;
+    String title, subject, category, dueDate, description;
     Boolean isDone;
 
     public TodoItem() {
     }
 
-    public TodoItem(String title, String subject, String dueDate, String description, Boolean isDone) {
+    public TodoItem(String title, String subject, String category, String dueDate, String description, Boolean isDone) {
         this.title = title;
         this.subject = subject;
+        this.category = category;
         this.dueDate = dueDate;
         this.description = description;
         this.isDone = isDone;
@@ -29,6 +30,14 @@ public class TodoItem {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getDueDate() {
