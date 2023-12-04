@@ -80,6 +80,7 @@ public class TodoFragment extends Fragment {
                         todo.add(4, Objects.requireNonNull(classDataSnapshot.child("done").getValue()).toString());
                         todo.add(5, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString());
                         todo.add(6, Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent()).getKey()));
+                        todo.add(7, Objects.requireNonNull(classDataSnapshot.child("category").getValue()).toString());
                         Log.d("todo list", todo.toString());
                         todoList.add(todo);
                     }

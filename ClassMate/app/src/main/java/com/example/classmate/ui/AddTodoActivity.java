@@ -103,15 +103,16 @@ public class AddTodoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String title, subject, dueDate, description;
+                String title, subject, category, dueDate, description;
                 title = todoTitleInput.getText().toString();
                 subject = subjectSpinner.getText().toString();
+                category = categorySpinner.getText().toString();
                 dueDate = dateInput.getText().toString();
                 description = noteInput.getText().toString();
 
                 FirebaseUser user = mAuth.getCurrentUser();
 
-                TodoItem todoItem = new TodoItem(title, subject, dueDate, description, Boolean.FALSE);
+                TodoItem todoItem = new TodoItem(title, subject, category, dueDate, description, Boolean.FALSE);
 
                 // nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
                 dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();

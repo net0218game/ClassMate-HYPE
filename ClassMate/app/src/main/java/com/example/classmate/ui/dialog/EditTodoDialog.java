@@ -2,14 +2,20 @@ package com.example.classmate.ui.dialog;
 
 import static java.util.Arrays.asList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +23,7 @@ import androidx.annotation.NonNull;
 import com.example.classmate.R;
 import com.example.classmate.interfaces.TimetableClass;
 import com.example.classmate.interfaces.TodoItem;
+import com.example.classmate.ui.AddTodoActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class EditTodoDialog {
@@ -69,6 +77,35 @@ public class EditTodoDialog {
         ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(dialog.getContext(), R.layout.spinner_item, subjectList);
         subjectInput.setAdapter(subjectAdapter);
 
+
+        dueDateInput.setInputType(InputType.TYPE_NULL);
+        dueDateInput.setKeyListener(null);
+        dueDateInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                // on below line we are creating a variable for date picker dialog.
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        // on below line we are passing context.
+                        dialog.getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                dueDateInput.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+
+                            }
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
         closeDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +119,7 @@ public class EditTodoDialog {
             @Override
             public void onClick(View v) {
 
-                TodoItem todoItem = new TodoItem(titleInput.getText().toString(), subjectInput.getText().toString(), dueDateInput.getText().toString(), descriptionInput.getText().toString(), false);
+                TodoItem todoItem = new TodoItem(titleInput.getText().toString(), subjectInput.getText().toString(), categoryInput.getText().toString(), dueDateInput.getText().toString(), descriptionInput.getText().toString(), false);
                 dbReference = FirebaseDatabase.getInstance().getReference();
                 dbReference.child("Todo").child(user.getUid() + "/" + id).setValue(todoItem);
                 dialog.dismiss();
