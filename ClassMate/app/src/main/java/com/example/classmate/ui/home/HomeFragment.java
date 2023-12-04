@@ -1,6 +1,7 @@
 package com.example.classmate.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.classmate.R;
 import com.example.classmate.databinding.FragmentHomeBinding;
+import com.example.classmate.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +57,8 @@ public class HomeFragment extends Fragment {
                 }
             });
         } else {
-            // No user is signed in
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            startActivity(intent);
         }
 
         return view;

@@ -22,18 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser == null){
-            // Load Login Activity
-            //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            //startActivity(intent);
-            //finish();
-        }
+
     }
 
     @Override
