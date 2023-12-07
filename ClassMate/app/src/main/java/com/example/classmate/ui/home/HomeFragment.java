@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,6 +34,8 @@ public class HomeFragment extends Fragment {
 // Initialize Firebase Auth
 
     TextView title;
+
+    CardView classesCard, todoCard;
 
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,6 +63,11 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(requireActivity(), LoginActivity.class);
             startActivity(intent);
         }
+
+        classesCard = view.findViewById(R.id.classesCard);
+        todoCard = view.findViewById(R.id.todoCard);
+
+        // TODO: Onclick listener
 
         return view;
     }

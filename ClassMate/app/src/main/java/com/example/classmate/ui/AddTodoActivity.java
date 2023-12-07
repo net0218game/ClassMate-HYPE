@@ -2,6 +2,7 @@ package com.example.classmate.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
