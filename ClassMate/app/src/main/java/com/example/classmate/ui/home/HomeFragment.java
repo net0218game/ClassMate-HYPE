@@ -27,9 +27,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
@@ -38,12 +41,10 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private FirebaseAuth mAuth;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-    RecyclerView recyclerView;
+    RecyclerView classRecyclerView, todoRecyclerView;
     ArrayList<ArrayList<String>> homeClassList = new ArrayList<ArrayList<String>>();
-
+    ArrayList<ArrayList<String>> homeTodoList = new ArrayList<ArrayList<String>>();
     TextView title;
-
     CardView classesCard, todoCard;
 
     @SuppressLint("SetTextI18n")
@@ -51,18 +52,31 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        getClasses();
+        getTodoList();
+
         mAuth = FirebaseAuth.getInstance();
 
-        RecyclerView.Adapter<HomeClassAdapter.ViewHolder> adapter = new HomeClassAdapter(homeClassList);
+        RecyclerView.Adapter<HomeClassAdapter.ViewHolder> homeClassAdapter = new HomeClassAdapter(homeClassList);
+        RecyclerView.Adapter<HomeTodoAdapter.ViewHolder> homeTodoAdapter = new HomeTodoAdapter(homeTodoList);
 
         // LayoutManager beallitasa RecyclerView-hoz.
-        recyclerView
+        classRecyclerView
                 = view.findViewById(R.id.homeClassRecyclerView);
-        recyclerView.setLayoutManager(
+        classRecyclerView.setLayoutManager(
                 new LinearLayoutManager(getContext()));
 
         // adapter beallitasa
-        recyclerView.setAdapter(adapter);
+        classRecyclerView.setAdapter(homeClassAdapter);
+
+
+        todoRecyclerView
+                = view.findViewById(R.id.homeTodoRecyclerView);
+        todoRecyclerView.setLayoutManager(
+                new LinearLayoutManager(getContext()));
+
+        // adapter beallitasa
+        todoRecyclerView.setAdapter(homeTodoAdapter);
 
         title = view.findViewById(R.id.homeTitle);
         if (user != null) {
@@ -87,7 +101,6 @@ public class HomeFragment extends Fragment {
         todoCard = view.findViewById(R.id.todoCard);
 
         // TODO: Onclick listener
-
         return view;
     }
 
@@ -97,27 +110,67 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    public void timetable() {
+    public void getClasses() {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 homeClassList.clear();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 Date date = new Date();
-                String day = simpleDateFormat.format(date).toLowerCase();
-                if(snapshot.child("Subjects/" + user.getUid()).exists()) {
+                String day = simpleDateFormat.format(date);
+                Log.d("home classes", day);
+
+                if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
                         if (Objects.requireNonNull(classDataSnapshot.child("day").getValue()).toString().equals(day)) {
                             ArrayList<String> ora = new ArrayList<String>();
                             ora.add(0, Objects.requireNonNull(classDataSnapshot.child("subject").getValue()).toString());
                             ora.add(1, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString());
                             ora.add(2, Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent()).getKey()));
+                            ora.add(3, Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString());
+                            ora.add(4, Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString());
 
                             homeClassList.add(ora);
                         }
                     }
                 }
+                final int COLUMN = 3;
+                Comparator<ArrayList<String>> myComparator = new Comparator<ArrayList<String>>() {
+                    @Override
+                    public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+                        try {
+                            return new SimpleDateFormat("HH:mm").parse(o1.get(COLUMN)).compareTo(new SimpleDateFormat("HH:mm").parse(o2.get(COLUMN)));
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                };
 
-                recyclerView.getAdapter().notifyDataSetChanged();
+                Collections.sort(homeClassList, myComparator);
+
+                classRecyclerView.getAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    public void getTodoList() {
+        FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                homeTodoList.clear();
+                if (snapshot.child("Todo/" + user.getUid()).exists()) {
+                    for (DataSnapshot classDataSnapshot : snapshot.child("Todo/" + user.getUid()).getChildren()) {
+                        if (Objects.requireNonNull(classDataSnapshot.child("done").getValue()).toString().equals("false")) {
+                            ArrayList<String> todo = new ArrayList<String>();
+                            todo.add(0, Objects.requireNonNull(classDataSnapshot.child("title").getValue()).toString());
+                            todo.add(1, Objects.requireNonNull(classDataSnapshot.child("category").getValue()).toString());
+                            homeTodoList.add(todo);
+                        }
+                    }
+                }
+                todoRecyclerView.getAdapter().notifyDataSetChanged();
             }
 
             @Override

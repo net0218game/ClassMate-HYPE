@@ -1,8 +1,12 @@
 package com.example.classmate.ui.dialog;
 
 import static java.util.Arrays.asList;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -10,8 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
 import com.example.classmate.R;
 import com.example.classmate.interfaces.TimetableClass;
+import com.example.classmate.ui.AddClassActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class EditClassDialog {
 
@@ -47,6 +55,70 @@ public class EditClassDialog {
 
         TextInputEditText endInput = dialog.findViewById(R.id.classEndTime);
         endInput.setText(end);
+
+        startInput.setInputType(InputType.TYPE_NULL);
+        startInput.setKeyListener(null);
+
+        endInput.setInputType(InputType.TYPE_NULL);
+        endInput.setKeyListener(null);
+
+        startInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // on below line we are getting the
+                // instance of our calendar.
+                final Calendar c = Calendar.getInstance();
+
+                // on below line we are getting our hour, minute.
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+
+                // on below line we are initializing our Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(dialog.getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                // on below line we are setting selected time
+                                // in our text view.
+                                startInput.setText(hourOfDay + ":" + minute);
+                            }
+                        }, hour, minute, false);
+                // at last we are calling show to
+                // display our time picker dialog.
+                timePickerDialog.show();
+            }
+        });
+
+        endInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // on below line we are getting the
+                // instance of our calendar.
+                final Calendar c = Calendar.getInstance();
+
+                // on below line we are getting our hour, minute.
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+
+                // on below line we are initializing our Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(dialog.getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                // on below line we are setting selected time
+                                // in our text view.
+                                endInput.setText(hourOfDay + ":" + minute);
+                            }
+                        }, hour, minute, false);
+                // at last we are calling show to
+                // display our time picker dialog.
+                timePickerDialog.show();
+            }
+        });
 
         Button closeDialogButton = dialog.findViewById(R.id.cancelEditButton);
         Button editButton = dialog.findViewById(R.id.editClassButton);

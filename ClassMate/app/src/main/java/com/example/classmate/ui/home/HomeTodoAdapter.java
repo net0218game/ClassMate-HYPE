@@ -7,21 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classmate.R;
-
-import com.example.classmate.ui.timetable.TimetableFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class HomeClassAdapter extends RecyclerView.Adapter<HomeClassAdapter.ViewHolder> {
+public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHolder> {
 
     ArrayList<ArrayList<String>> localDataSet;
 
@@ -30,14 +26,12 @@ public class HomeClassAdapter extends RecyclerView.Adapter<HomeClassAdapter.View
     FirebaseUser user = mAuth.getCurrentUser();
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView classItem, startTime, endTime;
+        TextView todoItem;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-            classItem = view.findViewById(R.id.homeClassItem);
-            startTime = view.findViewById(R.id.classItemStart);
-            endTime = view.findViewById(R.id.classItemEnd);
+            todoItem = view.findViewById(R.id.homeTodoItem);
         }
 
         @Override
@@ -48,7 +42,7 @@ public class HomeClassAdapter extends RecyclerView.Adapter<HomeClassAdapter.View
         }
     }
 
-    public HomeClassAdapter(ArrayList<ArrayList<String>> dataSet) {
+    public HomeTodoAdapter(ArrayList<ArrayList<String>> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -57,21 +51,25 @@ public class HomeClassAdapter extends RecyclerView.Adapter<HomeClassAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.home_class_item, viewGroup, false);
+                .inflate(R.layout.home_todo_item, viewGroup, false);
 
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeClassAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull HomeTodoAdapter.ViewHolder viewHolder, int position) {
         // Ertekek beallitasa
-        viewHolder.classItem.setText(localDataSet.get(position).get(0));
-        viewHolder.startTime.setText(localDataSet.get(position).get(3));
-        viewHolder.endTime.setText(localDataSet.get(position).get(4));
-        Drawable[] drawable = viewHolder.classItem.getCompoundDrawables();
-        drawable[0].setTint(Integer.parseInt(localDataSet.get(position).get(1)));
+        viewHolder.todoItem.setText(localDataSet.get(position).get(0));
 
-        viewHolder.classItem.setOnClickListener(viewHolder);
+        if (Objects.equals(localDataSet.get(position).get(1), "Homework")) {
+            viewHolder.todoItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_edit_24, 0, 0, 0);
+        } else if (Objects.equals(localDataSet.get(position).get(1), "Exam")) {
+            viewHolder.todoItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_assignment_24, 0, 0, 0);
+        } else if (Objects.equals(localDataSet.get(position).get(1), "Event")) {
+            viewHolder.todoItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_event_24, 0, 0, 0);
+        }
+
+        viewHolder.todoItem.setOnClickListener(viewHolder);
     }
 
 

@@ -100,7 +100,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/homeClassRecyclerView"
                         tools:listitem="@layout/home_class_item"/>
                 </LinearLayout>
@@ -131,72 +131,11 @@
                         android:drawableTint="@color/white"
                         android:textStyle="bold" />
 
-                    <ScrollView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/outline_edit_24"
-                                android:drawablePadding="10dp"
-                                android:paddingTop="10dp"
-                                android:text="Matek házi"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableTint="@color/white"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Irodalom esszé"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/outline_assignment_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="@color/white"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Mesterséges Inteligencia Előadás"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/outline_event_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="@color/white"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Töri gyűjtőmunka"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/outline_edit_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="@color/white"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Informatika beadandó"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/outline_assignment_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="@color/white"/>
-
-                        </LinearLayout>
-                    </ScrollView>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/homeTodoRecyclerView"
+                        tools:listitem="@layout/home_todo_item"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

@@ -29,8 +29,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class DailyTimetableFragment extends Fragment {
@@ -83,7 +89,7 @@ public class DailyTimetableFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 orak.clear();
-                if(snapshot.child("Subjects/" + user.getUid()).exists()) {
+                if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
                         if (Objects.requireNonNull(classDataSnapshot.child("day").getValue()).toString().equals(days[tabLayout.getSelectedTabPosition()])) {
                             ArrayList<String> ora = new ArrayList<String>();
@@ -102,6 +108,19 @@ public class DailyTimetableFragment extends Fragment {
                         }
                     }
                 }
+                final int COLUMN = 5;
+                Comparator<ArrayList<String>> myComparator = new Comparator<ArrayList<String>>() {
+                    @Override
+                    public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+                        try {
+                            return new SimpleDateFormat("HH:mm").parse(o1.get(COLUMN)).compareTo(new SimpleDateFormat("HH:mm").parse(o2.get(COLUMN)));
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                };
+
+                Collections.sort(orak, myComparator);
 
                 recyclerView.getAdapter().notifyDataSetChanged();
             }

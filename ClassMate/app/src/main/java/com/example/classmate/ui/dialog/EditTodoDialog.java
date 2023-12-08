@@ -77,7 +77,6 @@ public class EditTodoDialog {
         ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(dialog.getContext(), R.layout.spinner_item, subjectList);
         subjectInput.setAdapter(subjectAdapter);
 
-
         dueDateInput.setInputType(InputType.TYPE_NULL);
         dueDateInput.setKeyListener(null);
         dueDateInput.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +98,6 @@ public class EditTodoDialog {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 dueDateInput.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-
                             }
                         }, year, month, day);
                 datePickerDialog.show();
@@ -118,16 +116,13 @@ public class EditTodoDialog {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 TodoItem todoItem = new TodoItem(titleInput.getText().toString(), subjectInput.getText().toString(), categoryInput.getText().toString(), dueDateInput.getText().toString(), descriptionInput.getText().toString(), false);
                 dbReference = FirebaseDatabase.getInstance().getReference();
                 dbReference.child("Todo").child(user.getUid() + "/" + id).setValue(todoItem);
                 dialog.dismiss();
             }
         });
-
         dialog.show();
-
     }
 
     private ArrayList<String> getSubjectList() {

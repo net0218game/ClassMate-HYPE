@@ -3,12 +3,16 @@ package com.example.classmate.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.classmate.R;
@@ -27,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -35,8 +40,9 @@ public class AddClassActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     DatabaseReference dbReference;
-
     Button addClassButton;
+    TextInputEditText classroomInput, startInput, endInput;
+    AutoCompleteTextView subjectSpinner, daySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +53,76 @@ public class AddClassActivity extends AppCompatActivity {
 
         addClassButton = findViewById(R.id.addClassButton);
 
-        final AutoCompleteTextView subjectSpinner = findViewById(R.id.subjectTextView);
-        final AutoCompleteTextView daySpinner = findViewById(R.id.dayTextView);
-        TextInputEditText classroomInput = findViewById(R.id.classClassroom);
-        TextInputEditText startInput = findViewById(R.id.classStartTime);
-        TextInputEditText endInput = findViewById(R.id.classEndTime);
+        subjectSpinner = findViewById(R.id.subjectTextView);
+        daySpinner = findViewById(R.id.dayTextView);
+        classroomInput = findViewById(R.id.classClassroom);
+        startInput = findViewById(R.id.classStartTime);
+        endInput = findViewById(R.id.classEndTime);
+
+        startInput.setInputType(InputType.TYPE_NULL);
+        startInput.setKeyListener(null);
+
+        endInput.setInputType(InputType.TYPE_NULL);
+        endInput.setKeyListener(null);
+
+        startInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // on below line we are getting the
+                // instance of our calendar.
+                final Calendar c = Calendar.getInstance();
+
+                // on below line we are getting our hour, minute.
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+
+                // on below line we are initializing our Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddClassActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                // on below line we are setting selected time
+                                // in our text view.
+                                startInput.setText(hourOfDay + ":" + minute);
+
+                            }
+                        }, hour, minute, true);
+                // at last we are calling show to
+                // display our time picker dialog.
+                timePickerDialog.show();
+            }
+        });
+
+        endInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // on below line we are getting the
+                // instance of our calendar.
+                final Calendar c = Calendar.getInstance();
+
+                // on below line we are getting our hour, minute.
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+
+                // on below line we are initializing our Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddClassActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                // on below line we are setting selected time
+                                // in our text view.
+                                endInput.setText(hourOfDay + ":" + minute);
+                            }
+                        }, hour, minute, true);
+                // at last we are calling show to
+                // display our time picker dialog.
+                timePickerDialog.show();
+            }
+        });
 
         ArrayList<String> subjectList = getSubjectList();
         ArrayList<String> dayList = getDayList();
