@@ -98,72 +98,11 @@
                         android:drawableTint="@color/white"
                         android:textStyle="bold" />
 
-                    <ScrollView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Matek"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/baseline_circle_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="#FF0026"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Irodalom"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/baseline_circle_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="#00A6FF"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Infó"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/baseline_circle_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="#00E4C2"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Töri"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/baseline_circle_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="#532727"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:text="Tesi"
-                                android:textColor="#C7C7C7"
-                                android:textSize="18sp"
-                                android:drawableLeft="@drawable/baseline_circle_24"
-                                android:drawablePadding="10dp"
-                                android:drawableTint="#57E400"/>
-
-                        </LinearLayout>
-                    </ScrollView>
+                        android:layout_height="300dp"
+                        android:id="@+id/homeClassRecyclerView"
+                        tools:listitem="@layout/home_class_item"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
