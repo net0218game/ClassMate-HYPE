@@ -117,7 +117,6 @@ public class HomeFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 Date date = new Date();
                 String day = simpleDateFormat.format(date);
-                Log.d("home classes", day);
 
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
