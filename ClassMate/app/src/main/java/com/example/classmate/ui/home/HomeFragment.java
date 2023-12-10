@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private FirebaseAuth mAuth;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user;
     RecyclerView classRecyclerView, todoRecyclerView;
     ArrayList<ArrayList<String>> homeClassList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> homeTodoList = new ArrayList<ArrayList<String>>();
@@ -51,9 +51,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        getClasses();
-        getTodoList();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -69,7 +66,6 @@ public class HomeFragment extends Fragment {
         // adapter beallitasa
         classRecyclerView.setAdapter(homeClassAdapter);
 
-
         todoRecyclerView
                 = view.findViewById(R.id.homeTodoRecyclerView);
         todoRecyclerView.setLayoutManager(
@@ -79,7 +75,10 @@ public class HomeFragment extends Fragment {
         todoRecyclerView.setAdapter(homeTodoAdapter);
 
         title = view.findViewById(R.id.homeTitle);
+        user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            getClasses();
+            getTodoList();
             FirebaseDatabase.getInstance().getReference("Users/" + user.getUid()).addValueEventListener(new ValueEventListener() {
 
                 @Override
@@ -117,6 +116,9 @@ public class HomeFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 Date date = new Date();
                 String day = simpleDateFormat.format(date);
+                if (day.equals("Saturday") || day.equals("Sunday")) {
+                    day = "Monday";
+                }
 
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
