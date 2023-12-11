@@ -1,4 +1,4 @@
-package com.example.classmate.widgets;
+package com.example.classmate.widgets.todo;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

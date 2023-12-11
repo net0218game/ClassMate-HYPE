@@ -1,9 +1,10 @@
-package com.example.classmate.widgets;
+package com.example.classmate.widgets.todo;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -53,8 +54,10 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews view = new RemoteViews(mContext.getPackageName(),
-                R.layout.widget_todo_item);
-        view.setTextViewText(R.id.widgetTodoItem, todoList.get(position));
+                R.layout.home_todo_item);
+        Log.d("orarend", todoList.toString());
+
+        view.setTextViewText(R.id.homeTodoItem, todoList.get(position));
         return view;
     }
 

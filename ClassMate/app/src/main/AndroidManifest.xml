@@ -13,10 +13,30 @@
         android:theme="@style/Theme.ClassMate"
         tools:targetApi="31">
         <receiver
-            android:name=".widgets.TodoWidget"
+            android:name=".widgets.timetable.TimetableWidget"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.TIME_TICK" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/timetable_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widgets.timetable.TimetableWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver
+            android:name=".widgets.todo.TodoWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.TIME_TICK" />
+                <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
 
             <meta-data
@@ -24,7 +44,8 @@
                 android:resource="@xml/todo_widget_info" />
         </receiver>
 
-        <service android:name=".widgets.TodoWidgetService"
+        <service
+            android:name=".widgets.todo.TodoWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity

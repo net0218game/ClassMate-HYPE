@@ -1,4 +1,4 @@
-package com.example.classmate.widgets;
+package com.example.classmate.widgets.todo;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -40,7 +40,7 @@ public class TodoWidget extends AppWidgetProvider {
         Toast.makeText(context, "onDisabled called", Toast.LENGTH_LONG).show();
     }
 
-    private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
+    public static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
         views.setRemoteAdapter(R.id.widgetListView,
                 new Intent(context, TodoWidgetService.class));
     }

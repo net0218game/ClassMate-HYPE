@@ -1,6 +1,11 @@
 package com.example.classmate.ui.todo;
+
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,14 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.classmate.R;
-import com.example.classmate.ui.AddSubjectActivity;
 import com.example.classmate.ui.AddTodoActivity;
-import com.example.classmate.ui.timetablefragment.ClassAdapter;
+import com.example.classmate.widgets.timetable.TimetableWidget;
+import com.example.classmate.widgets.todo.TodoWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +45,7 @@ public class TodoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
 
         getTodoList();
+        updateWidget();
 
         RecyclerView.Adapter<TodoAdapter.ViewHolder> adapter = new TodoAdapter(todoList);
 
@@ -58,7 +62,7 @@ public class TodoFragment extends Fragment {
         addTodoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (getActivity(), AddTodoActivity.class);
+                Intent intent = new Intent(getActivity(), AddTodoActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,7 +74,7 @@ public class TodoFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 todoList.clear();
-                if(snapshot.child("Todo/" + user.getUid()).exists()) {
+                if (snapshot.child("Todo/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Todo/" + user.getUid()).getChildren()) {
                         ArrayList<String> todo = new ArrayList<String>();
                         todo.add(0, Objects.requireNonNull(classDataSnapshot.child("title").getValue()).toString());
@@ -85,14 +89,23 @@ public class TodoFragment extends Fragment {
                         todoList.add(todo);
                     }
                 }
-
                 recyclerView.getAdapter().notifyDataSetChanged();
+                updateWidget();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    public void updateWidget() {
+        Context context = requireContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+        ComponentName todoWidget = new ComponentName(context, TodoWidget.class);
+        int[] todoAppWidgetIds = appWidgetManager.getAppWidgetIds(todoWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(todoAppWidgetIds, R.id.widgetListView);
     }
 
 }
