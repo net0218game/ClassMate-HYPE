@@ -35,10 +35,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/color3"
                 app:cardCornerRadius="10dp"
-                app:contentPadding="20dp"
-                android:visibility="gone">
+                app:contentPadding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,7 +76,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/classesCard"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@color/color2"
                 app:cardCornerRadius="10dp"
@@ -90,26 +90,48 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Upcoming Classes"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
                         android:drawableLeft="@drawable/baseline_menu_book_24"
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/white"
+                        android:text="Upcoming Classes"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <LinearLayout
+                        android:id="@+id/emptyClasses"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="You have no upcoming classes"
+                            android:textAlignment="center" />
+
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/outline_cancel_24"
+                            app:tint="#184165" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/homeClassRecyclerView"
-                        tools:listitem="@layout/home_class_item"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/home_class_item" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/todoCard"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@color/color2"
                 app:cardCornerRadius="10dp"
@@ -123,21 +145,48 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tasks"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
                         android:drawableLeft="@drawable/todo"
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/white"
+                        android:text="Tasks"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <LinearLayout
+                        android:id="@+id/emptyTasks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="You have no tasks to do"
+                            android:textAlignment="center" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/outline_cancel_24"
+                            app:tint="#184165" />
+                    </LinearLayout>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/homeTodoRecyclerView"
-                        tools:listitem="@layout/home_todo_item"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/home_todo_item" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update Wdgets" />
 
         </LinearLayout>
     </ScrollView>

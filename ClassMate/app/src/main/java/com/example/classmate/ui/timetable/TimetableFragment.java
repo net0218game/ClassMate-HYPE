@@ -2,6 +2,9 @@ package com.example.classmate.ui.timetable;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,6 +21,8 @@ import com.example.classmate.R;
 import com.example.classmate.ViewPagerAdapter;
 import com.example.classmate.ui.AddClassActivity;
 import com.example.classmate.ui.AddSubjectActivity;
+import com.example.classmate.widgets.timetable.TimetableWidget;
+import com.example.classmate.widgets.todo.TodoWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -45,6 +50,8 @@ public class TimetableFragment extends Fragment {
         // Set the adapter for the viewpager
         myviewPagerAdapter = new ViewPagerAdapter(this.requireActivity());
         viewPager2.setAdapter(myviewPagerAdapter);
+
+        updateWidget();
 
         addClassButton = view.findViewById(R.id.floatingActionButton);
 
@@ -75,7 +82,7 @@ public class TimetableFragment extends Fragment {
         addClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (getActivity(), AddSubjectActivity.class);
+                Intent intent = new Intent(getActivity(), AddSubjectActivity.class);
                 startActivity(intent);
             }
         });
@@ -89,4 +96,15 @@ public class TimetableFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    public void updateWidget() {
+        if (getActivity() != null) {
+            Context context = this.getContext();
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+            assert context != null;
+            ComponentName timetableWidget = new ComponentName(context, TimetableWidget.class);
+            int[] todoAppWidgetIds = appWidgetManager.getAppWidgetIds(timetableWidget);
+            appWidgetManager.notifyAppWidgetViewDataChanged(todoAppWidgetIds, R.id.timetableWidgetListView);
+        }
+    }
 }

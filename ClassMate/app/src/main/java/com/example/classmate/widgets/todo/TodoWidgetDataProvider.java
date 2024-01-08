@@ -1,7 +1,5 @@
 package com.example.classmate.widgets.todo;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -33,17 +31,16 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public void onCreate() {
-        getTodoList();
+        todoList = getTodoList();
     }
 
     @Override
     public void onDataSetChanged() {
-        getTodoList();
+        todoList = getTodoList();
     }
 
     @Override
     public void onDestroy() {
-
     }
 
     @Override
@@ -55,9 +52,9 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
     public RemoteViews getViewAt(int position) {
         RemoteViews view = new RemoteViews(mContext.getPackageName(),
                 R.layout.home_todo_item);
-        Log.d("orarend", todoList.toString());
-
         view.setTextViewText(R.id.homeTodoItem, todoList.get(position));
+        Log.d("todowidddgetdata", "widget filled");
+
         return view;
     }
 
@@ -81,7 +78,7 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
         return true;
     }
 
-    public void getTodoList() {
+    public ArrayList<String> getTodoList() {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 todoList.clear();
@@ -91,6 +88,7 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
                             todoList.add(Objects.requireNonNull(classDataSnapshot.child("title").getValue()).toString());
                         }
                     }
+                    Log.d("todowidddgetdata", "data received");
                 }
             }
 
@@ -98,5 +96,6 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        return todoList;
     }
 }

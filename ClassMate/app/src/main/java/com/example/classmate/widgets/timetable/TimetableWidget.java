@@ -1,6 +1,5 @@
 package com.example.classmate.widgets.timetable;
 
-import static com.example.classmate.widgets.todo.TodoWidget.setRemoteAdapter;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.classmate.R;
-import com.example.classmate.widgets.todo.TodoWidgetService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

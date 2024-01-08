@@ -27,7 +27,6 @@ import java.util.Objects;
 public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
     ArrayList<ArrayList<String>> classList = new ArrayList<ArrayList<String>>();
-
     Context mContext;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -37,17 +36,16 @@ public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteVie
 
     @Override
     public void onCreate() {
-        getClasses();
+        classList = getClasses();
     }
 
     @Override
     public void onDataSetChanged() {
-        getClasses();
+        classList = getClasses();
     }
 
     @Override
     public void onDestroy() {
-
     }
 
     @Override
@@ -59,8 +57,17 @@ public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteVie
     public RemoteViews getViewAt(int position) {
         RemoteViews view = new RemoteViews(mContext.getPackageName(),
                 R.layout.home_class_item);
-        Log.d("orarend", classList.toString());
-        view.setTextViewText(R.id.homeClassItem, classList.get(position).get(0));
+        Log.d("timetablewidddgetdata", "ASDFASASDASDSDSASDASD");
+
+        view.setTextViewText(R.id.homeClassItem, classList.get(position).toString());
+        Log.d("timetablewidddgetdata", classList.get(position).get(0));
+        /*
+        view.setTextViewText(R.id.classItemStart, classList.get(position).get(3));
+        view.setTextViewText(R.id.classItemEnd, classList.get(position).get(4));
+         */
+        Log.d("timetablewidddgetdata", "widget filled");
+        Log.d("timetablewidddgetdata", classList.toString());
+
         return view;
     }
 
@@ -84,7 +91,8 @@ public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteVie
         return true;
     }
 
-    public void getClasses() {
+    public ArrayList<ArrayList<String>> getClasses() {
+        classList.clear();
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 classList.clear();
@@ -108,6 +116,8 @@ public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteVie
                             classList.add(ora);
                         }
                     }
+                    Log.d("timetablewidddgetdata", "data received");
+
                 }
                 final int COLUMN = 3;
                 Comparator<ArrayList<String>> myComparator = new Comparator<ArrayList<String>>() {
@@ -129,5 +139,6 @@ public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteVie
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        return classList;
     }
 }

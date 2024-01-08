@@ -1,12 +1,17 @@
 package com.example.classmate.ui.home;
 
 import android.annotation.SuppressLint;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,10 +21,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.classmate.MainActivity;
 import com.example.classmate.R;
 import com.example.classmate.databinding.FragmentHomeBinding;
 import com.example.classmate.ui.login.LoginActivity;
 import com.example.classmate.ui.todo.TodoAdapter;
+import com.example.classmate.widgets.timetable.TimetableWidget;
+import com.example.classmate.widgets.todo.TodoWidget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,33 +54,36 @@ public class HomeFragment extends Fragment {
     ArrayList<ArrayList<String>> homeTodoList = new ArrayList<ArrayList<String>>();
     TextView title;
     CardView classesCard, todoCard;
+    Button updateWidgetsButton;
+    LinearLayout emptyTodoList, emptyClassList;
 
     @SuppressLint("SetTextI18n")
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mAuth = FirebaseAuth.getInstance();
+        updateWidget();
 
         RecyclerView.Adapter<HomeClassAdapter.ViewHolder> homeClassAdapter = new HomeClassAdapter(homeClassList);
         RecyclerView.Adapter<HomeTodoAdapter.ViewHolder> homeTodoAdapter = new HomeTodoAdapter(homeTodoList);
 
         // LayoutManager beallitasa RecyclerView-hoz.
-        classRecyclerView
-                = view.findViewById(R.id.homeClassRecyclerView);
-        classRecyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext()));
+        classRecyclerView = view.findViewById(R.id.homeClassRecyclerView);
+        classRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // adapter beallitasa
         classRecyclerView.setAdapter(homeClassAdapter);
 
-        todoRecyclerView
-                = view.findViewById(R.id.homeTodoRecyclerView);
-        todoRecyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext()));
+        todoRecyclerView = view.findViewById(R.id.homeTodoRecyclerView);
+        todoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // adapter beallitasa
         todoRecyclerView.setAdapter(homeTodoAdapter);
+
+
+        emptyTodoList = view.findViewById(R.id.emptyTasks);
+        emptyClassList = view.findViewById(R.id.emptyClasses);
+
 
         title = view.findViewById(R.id.homeTitle);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -98,6 +109,18 @@ public class HomeFragment extends Fragment {
 
         classesCard = view.findViewById(R.id.classesCard);
         todoCard = view.findViewById(R.id.todoCard);
+        updateWidgetsButton = view.findViewById(R.id.button4);
+
+        updateWidgetsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateWidget();
+
+                int reqCode = 1;
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                MainActivity.showNotification(getContext(), "SZIA SZILAAARD", "MUKODIK!!!Ez egy ClassMate ertesites!!! Szia Szilard!!!!", intent, reqCode);
+            }
+        });
 
         // TODO: Onclick listener
         return view;
@@ -119,6 +142,7 @@ public class HomeFragment extends Fragment {
                 if (day.equals("Saturday") || day.equals("Sunday")) {
                     day = "Monday";
                 }
+                updateWidget();
 
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
@@ -149,6 +173,14 @@ public class HomeFragment extends Fragment {
                 Collections.sort(homeClassList, myComparator);
 
                 classRecyclerView.getAdapter().notifyDataSetChanged();
+
+                if (homeClassList.isEmpty()) {
+                    emptyClassList.setVisibility(View.VISIBLE);
+                    classRecyclerView.setVisibility(View.GONE);
+                } else {
+                    emptyClassList.setVisibility(View.GONE);
+                    classRecyclerView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -172,11 +204,31 @@ public class HomeFragment extends Fragment {
                     }
                 }
                 todoRecyclerView.getAdapter().notifyDataSetChanged();
+                if (homeTodoList.isEmpty()) {
+                    emptyTodoList.setVisibility(View.VISIBLE);
+                    todoRecyclerView.setVisibility(View.GONE);
+                } else {
+                    emptyTodoList.setVisibility(View.GONE);
+                    todoRecyclerView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    public void updateWidget() {
+        Context context = requireContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+        ComponentName todoWidget = new ComponentName(context, TodoWidget.class);
+        int[] todoAppWidgetIds = appWidgetManager.getAppWidgetIds(todoWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(todoAppWidgetIds, R.id.widgetListView);
+
+        ComponentName timetableWidget = new ComponentName(context, TimetableWidget.class);
+        int[] timetableAppWidgetIds = appWidgetManager.getAppWidgetIds(timetableWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(timetableAppWidgetIds, R.id.timetableWidgetListView);
     }
 }

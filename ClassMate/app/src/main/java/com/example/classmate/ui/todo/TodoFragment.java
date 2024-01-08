@@ -100,12 +100,14 @@ public class TodoFragment extends Fragment {
     }
 
     public void updateWidget() {
-        Context context = requireContext();
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        if (getActivity() != null) {
+            Context context = this.getContext();
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        ComponentName todoWidget = new ComponentName(context, TodoWidget.class);
-        int[] todoAppWidgetIds = appWidgetManager.getAppWidgetIds(todoWidget);
-        appWidgetManager.notifyAppWidgetViewDataChanged(todoAppWidgetIds, R.id.widgetListView);
+            assert context != null;
+            ComponentName todoWidget = new ComponentName(context, TodoWidget.class);
+            int[] todoAppWidgetIds = appWidgetManager.getAppWidgetIds(todoWidget);
+            appWidgetManager.notifyAppWidgetViewDataChanged(todoAppWidgetIds, R.id.widgetListView);
+        }
     }
-
 }

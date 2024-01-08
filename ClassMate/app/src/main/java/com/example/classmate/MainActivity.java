@@ -1,19 +1,24 @@
 package com.example.classmate;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.example.classmate.ui.data.model.LoggedInUser;
-import com.example.classmate.ui.login.LoginActivity;
-import com.example.classmate.ui.register.RegisterActivity;
 import com.example.classmate.widgets.timetable.TimetableWidget;
 import com.example.classmate.widgets.todo.TodoWidget;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,8 +28,13 @@ import com.example.classmate.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     @Override
     public void onStart() {
@@ -51,6 +61,35 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
         updateWidget();
 
+        int reqCode = 1;
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        showNotification(this, "SZIA SZILAAARD", "Ez egy ClassMate ertesites!!! Szia Szilard!!!!", intent, reqCode);
+
+    }
+
+    // https://stackoverflow.com/questions/58817214/how-to-make-notification-appear-on-the-phone-for-android-studio
+    public static void showNotification(Context context, String title, String message, Intent intent, int reqCode) {
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, reqCode, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+        String CHANNEL_ID = "channel_name";// The id of the channel.
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel Name";// The user-visible name of the channel.
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notificationManager.createNotificationChannel(mChannel);
+            }
+        }
+        notificationManager.notify(reqCode, notificationBuilder.build()); // 0 is the request code, it should be unique id
+
+        Log.d("showNotification", "showNotification: " + reqCode);
     }
 
     public void updateWidget() {
