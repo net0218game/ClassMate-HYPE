@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ebcbe9ad-fc4d-452d-80f0-82563482c499" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ClassMate/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ClassMate/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClassMate/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ClassMate/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ebcbe9ad-fc4d-452d-80f0-82563482c499" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,8 +29,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/dusza/ClassMate-HYPE",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/gamen/Desktop/INFO/ClassMate-HYPE/ClassMate",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
 }]]></component>
