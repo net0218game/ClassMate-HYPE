@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.classmate"
+    namespace = "com.hype.classmate"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.classmate"
+        applicationId = "com.hype.classmate"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -56,7 +56,7 @@ dependencies {
     implementation("com.github.yukuku:ambilwarna:2.0.1")
 
     // Calendar
-    implementation ("com.github.prolificinteractive:material-calendarview:2.0.0")
+    implementation ("com.github.prolificinteractive:material-calendarview:1.4.3")
 
 
     testImplementation("junit:junit:4.13.2")
