@@ -37,6 +37,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.legacy:legacy-support-v13:1.0.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -57,7 +58,6 @@ dependencies {
 
     // Calendar
     implementation ("com.github.prolificinteractive:material-calendarview:1.4.3")
-
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
