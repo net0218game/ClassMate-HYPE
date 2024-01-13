@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_timetable"
-        android:name="com.hype.classmate.ui.timetable.TimetableFragment"
+        android:name="com.hype.classmate.ui.timetabletest.TestTimetableFragment"
         android:label="Timetable"
-        tools:layout="@layout/fragment_timetable" />
+        tools:layout="@layout/fragment_test_timetable" />
 
     <fragment
         android:id="@+id/navigation_calendar"

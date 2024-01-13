@@ -3,6 +3,7 @@ package com.hype.classmate.interfaces;
 public class TimetableClass {
     String subject, classroom, day, start, end;
 
+
     public TimetableClass(String subject, String classroom, String day, String start, String end) {
         this.subject = subject;
         this.classroom = classroom;
