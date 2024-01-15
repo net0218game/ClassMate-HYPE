@@ -1,19 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="56dp"
     tools:context=".ui.timetabletest.TestTimetableFragment">
 
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/todayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="today">
+
+        </Button>
+
+        <Button
+            android:id="@+id/changeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Day" />
+    </LinearLayout>
+
+    <com.alamkanak.weekview.WeekView
+        android:id="@+id/weekView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/buttons"
+        app:columnGap="8dp"
+        app:defaultEventColor="@color/colorPrimary"
+        app:headerPadding="12dp"
+        app:hourHeight="60dp"
+        app:numberOfVisibleDays="5"
+        app:showCurrentTimeFirst="true"
+        app:showNowLine="true"
+        app:showNowLineDot="true"
+        app:timeColumnPadding="8dp"
+        app:timeColumnTextSize="12sp"
+        app:fontFamily="@font/baloo_tamma_2_medium"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:src="@drawable/baseline_add_24" />
+
+
+    <!--
     <com.islandparadise14.mintable.MinTimeTableView
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:isFullWidth="true"
-        app:xEndLine="true"
-        app:isTwentyFourHourClock="true"
-        app:widthPadding="5"/>
+        app:widthPadding="5" /> -->
 
-</LinearLayout>
+</RelativeLayout>

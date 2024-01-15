@@ -12,6 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- Custom Font -->
+        <item name="fontFamily">@font/baloo_tamma_2_medium</item>
+
     </style>
 
     <style name="Theme.ClassMate.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">

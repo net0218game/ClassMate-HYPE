@@ -55,7 +55,10 @@ dependencies {
 
     implementation("com.github.yukuku:ambilwarna:2.0.1")
     // Calendar
+    // https://github.com/islandparadise14/MinTimetable
     implementation("com.github.islandparadise14:Mintable:1.5.1")
+    // https://github.com/thellmund/Android-Week-View
+    implementation("com.github.thellmund.Android-Week-View:core:5.3.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

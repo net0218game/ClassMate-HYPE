@@ -28,6 +28,7 @@
                 android:id="@+id/homeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_light"
                 android:text="Welcome Back!"
                 android:textSize="40dp"
                 android:textStyle="bold" />

@@ -1,15 +1,22 @@
 package com.hype.classmate.ui.timetabletest;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewEntity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,18 +25,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hype.classmate.R;
 import com.islandparadise14.mintable.MinTimeTableView;
-import com.islandparadise14.mintable.model.ScheduleDay;
 import com.islandparadise14.mintable.model.ScheduleEntity;
-import com.islandparadise14.mintable.schedule.ScheduleView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
 
 public class TestTimetableFragment extends Fragment {
@@ -38,10 +46,14 @@ public class TestTimetableFragment extends Fragment {
     ArrayList<ArrayList<String>> orak = new ArrayList<ArrayList<String>>();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     ArrayList<ScheduleEntity> scheduleList = new ArrayList<>();
+
     String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
     MinTimeTableView table;
 
+    Button todayButton, changeViewButton;
+
+    ArrayList<MyEvent> events = new ArrayList<>();
 
     public TestTimetableFragment() {
         // Required empty public constructor
@@ -54,17 +66,77 @@ public class TestTimetableFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_test_timetable, container, false);
-        table = view.findViewById(R.id.table);
-        table.initTable(day);
-        table.ratioCellSetting(20, 30, 1.5f);
-        timetable();
-        table.updateSchedules(scheduleList);
+
+        WeekView weekView = view.findViewById(R.id.weekView);
+        todayButton = view.findViewById(R.id.todayButton);
+        changeViewButton = view.findViewById(R.id.changeView);
+
+        // Jump to today
+        todayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weekView.scrollToDate(Calendar.getInstance());
+            }
+        });
+
+        // Day or week view
+        changeViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (weekView.getNumberOfVisibleDays() == 5) {
+                    weekView.setNumberOfVisibleDays(1);
+                    changeViewButton.setText("Week");
+
+                } else if (weekView.getNumberOfVisibleDays() == 1) {
+                    weekView.setNumberOfVisibleDays(5);
+                    changeViewButton.setText("Day");
+
+                }
+            }
+        });
+
+        /*FragmentWeekViewAdapter adapter = new FragmentWeekViewAdapter(viewModel::fetchEvents);
+        view.getWeekView().setAdapter(adapter);
+        binding.getWeekView().setMinDateAsLocalDate(YearMonth.now().atDay(1));
+        binding.getWeekView().setMaxDateAsLocalDate(YearMonth.now().atEndOfMonth());
+        viewModel.getViewState().observe(getViewLifecycleOwner(), viewState -> {
+            adapter.submitList(viewState.getEntities());
+        });*/
+
+        MyCustomPagingAdapter adapter = new MyCustomPagingAdapter();
+        weekView.setAdapter(adapter);
+
+        /*
+
+        Calendar endtime = Calendar.getInstance();
+        endtime.add(Calendar.HOUR_OF_DAY, 2);
+        MyEvent myEvent = new MyEvent(123421, "ASD", Calendar.getInstance(), endtime);
+        events.add(myEvent);
+        onCreateEntity(getContext(), myEvent);
+
+        adapter.submitList(events);
+
+
+
+
+        events.add(new MyEvent(1, "ASD", Calendar.getInstance(), endtime));
+        */
 
         return view;
+    }
+
+
+    // ?????????
+    public WeekViewEntity onCreateEntity(Context context, MyEvent item) {
+        return new WeekViewEntity.Event.Builder(item)
+                .setId(item.getId())
+                .setTitle(item.getTitle())
+                .setStartTime(item.getStartTime())
+                .setEndTime(item.getEndTime())
+                .build();
     }
 
     public void timetable() {
@@ -101,10 +173,7 @@ public class TestTimetableFragment extends Fragment {
 
                 Collections.sort(orak, myComparator);
                 for (int i = 0; i < orak.size(); i++) {
-                    Log.d("aynadat", orak.get(i).get(0));
-
-                    ScheduleEntity schedule = new ScheduleEntity(
-                            1, //originId
+                    ScheduleEntity schedule = new ScheduleEntity(1, //originId
                             orak.get(i).get(0), //scheduleName
                             orak.get(i).get(3), //roomInfo
                             Arrays.asList(days).indexOf(orak.get(i).get(4)), //ScheduleDay object (MONDAY ~ SUNDAY)
@@ -114,16 +183,13 @@ public class TestTimetableFragment extends Fragment {
                             "#000000" //textcolor (optional)
                     );
                     scheduleList.add(schedule);
-
                 }
                 table.updateSchedules(scheduleList);
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
     }
 }
