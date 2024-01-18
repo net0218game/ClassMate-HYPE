@@ -38,6 +38,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         CheckBox isDone;
         ImageView todoEdit;
         Button todoColor;
+
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View

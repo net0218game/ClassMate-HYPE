@@ -12,10 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hype.classmate.R;
 import com.hype.classmate.ui.AddTodoActivity;
@@ -28,34 +30,55 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class TodoFragment extends Fragment {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    RecyclerView recyclerView;
+    RecyclerView todayRecyclerView, pastRecyclerView, futureRecyclerView;
     FloatingActionButton addTodoButton;
-    ArrayList<ArrayList<String>> todoList = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> todayTodoList = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> pastTodoList = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> futureTodoList = new ArrayList<ArrayList<String>>();
+
+    TextView noEventToday, noEventPast, noEventFuture;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
 
-        getTodoList();
+        getTodayTodoList();
         updateWidget();
 
-        RecyclerView.Adapter<TodoAdapter.ViewHolder> adapter = new TodoAdapter(todoList);
+        RecyclerView.Adapter<TodoAdapter.ViewHolder> todayAdapter = new TodoAdapter(todayTodoList);
+        RecyclerView.Adapter<TodoAdapter.ViewHolder> pastAdapter = new TodoAdapter(pastTodoList);
+        RecyclerView.Adapter<TodoAdapter.ViewHolder> futureAdapter = new TodoAdapter(futureTodoList);
 
         // LayoutManager beallitasa RecyclerView-hoz.
-        recyclerView
-                = view.findViewById(R.id.todo_recycler_view);
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext()));
+        todayRecyclerView = view.findViewById(R.id.today_recycler_view);
+        todayRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        pastRecyclerView = view.findViewById(R.id.past_recycler_view);
+        pastRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        futureRecyclerView = view.findViewById(R.id.future_recycler_view);
+        futureRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // adapter beallitasa
-        recyclerView.setAdapter(adapter);
+        todayRecyclerView.setAdapter(todayAdapter);
+        pastRecyclerView.setAdapter(pastAdapter);
+        futureRecyclerView.setAdapter(futureAdapter);
+
+        noEventToday = view.findViewById(R.id.noEventToday);
+        noEventPast = view.findViewById(R.id.noEventPast);
+        noEventFuture = view.findViewById(R.id.noEventFuture);
 
         addTodoButton = view.findViewById(R.id.addTodoButton);
         addTodoButton.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +92,23 @@ public class TodoFragment extends Fragment {
         return view;
     }
 
-    public void getTodoList() {
+    public void getTodayTodoList() {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                todoList.clear();
+                todayTodoList.clear();
+                pastTodoList.clear();
+                futureTodoList.clear();
                 if (snapshot.child("Todo/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Todo/" + user.getUid()).getChildren()) {
+
                         ArrayList<String> todo = new ArrayList<String>();
+                        String dateString = Objects.requireNonNull(classDataSnapshot.child("dueDate").getValue()).toString();
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
+                        Calendar calendarTomorrow = Calendar.getInstance();
+                        calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
+                        Date tomorrow = calendarTomorrow.getTime();
+
                         todo.add(0, Objects.requireNonNull(classDataSnapshot.child("title").getValue()).toString());
                         todo.add(1, Objects.requireNonNull(classDataSnapshot.child("subject").getValue()).toString());
                         todo.add(2, Objects.requireNonNull(classDataSnapshot.child("description").getValue()).toString());
@@ -84,11 +117,37 @@ public class TodoFragment extends Fragment {
                         todo.add(5, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString());
                         todo.add(6, Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent()).getKey()));
                         todo.add(7, Objects.requireNonNull(classDataSnapshot.child("category").getValue()).toString());
-                        Log.d("todo list", todo.toString());
-                        todoList.add(todo);
+
+                        try {
+                            Date date = format.parse(dateString);
+                            if (DateUtils.isToday(date.getTime())) {
+                                // Event is Today
+                                Log.d("anyadat", String.valueOf(date) + " Today event");
+                                todayTodoList.add(todo);
+                            } else if (new Date().after(date) && !Objects.equals(date, new Date())) {
+                                // Past Event
+                                Log.d("anyadat", String.valueOf(date) + " Past event");
+                                pastTodoList.add(todo);
+                            } else if (new Date().before(date) && date != tomorrow) {
+                                // Future events
+                                Log.d("anyadat", String.valueOf(date) + " Future event");
+                                futureTodoList.add(todo);
+                            }
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                 }
-                recyclerView.getAdapter().notifyDataSetChanged();
+
+                todayRecyclerView.getAdapter().notifyDataSetChanged();
+                pastRecyclerView.getAdapter().notifyDataSetChanged();
+                futureRecyclerView.getAdapter().notifyDataSetChanged();
+
+                noEventToday.setVisibility(todayTodoList.isEmpty() ? View.VISIBLE : View.GONE);
+                noEventPast.setVisibility(pastTodoList.isEmpty() ? View.VISIBLE : View.GONE);
+                noEventFuture.setVisibility(futureTodoList.isEmpty() ? View.VISIBLE : View.GONE);
+
                 updateWidget();
             }
 

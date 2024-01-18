@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,42 +16,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="5dp"
-                android:drawableLeft="@drawable/baseline_access_time_24"
-                android:drawablePadding="10dp"
-                android:text="Past Events"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:drawableTop="@drawable/todo"
-                android:text="You don't have any past events" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="wrap_content"
@@ -66,35 +29,18 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/todo_recycler_view"
+                android:id="@+id/today_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/todo_item" />
 
-            <View
-                android:id="@+id/divider6"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
             <TextView
-                android:id="@+id/textView25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="5dp"
-                android:drawableLeft="@drawable/baseline_calendar_month_24"
-                android:drawablePadding="10dp"
-                android:text="Tomorrow"
-                android:textSize="15dp" />
-
-
-            <TextView
+                android:id="@+id/noEventToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableTop="@drawable/todo"
-                android:text="You don't have any events for tomorrow" />
+                android:text="You don't have any events for today" />
 
             <View
                 android:id="@+id/divider8"
@@ -113,12 +59,50 @@
                 android:text="Future Events"
                 android:textSize="15dp" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/future_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/todo_item" />
+
             <TextView
+                android:id="@+id/noEventFuture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableTop="@drawable/todo"
                 android:text="You don't have any future events" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="5dp"
+                android:drawableLeft="@drawable/baseline_access_time_24"
+                android:drawablePadding="10dp"
+                android:text="Past Events"
+                android:textSize="15dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/past_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/todo_item" />
+
+            <TextView
+                android:id="@+id/noEventPast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableTop="@drawable/todo"
+                android:text="You don't have any past events" />
         </LinearLayout>
     </ScrollView>
 
