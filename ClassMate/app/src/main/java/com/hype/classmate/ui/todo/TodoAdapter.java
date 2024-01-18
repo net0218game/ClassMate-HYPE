@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         TextView title, subject, dueDate, description, itemNumber, category;
         CheckBox isDone;
         ImageView todoEdit;
-
+        Button todoColor;
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
@@ -49,6 +50,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
             itemNumber = view.findViewById(R.id.item_number);
             todoCard = view.findViewById(R.id.todoCard);
             todoEdit = view.findViewById(R.id.todoEdit);
+            todoColor = view.findViewById(R.id.todoColor);
         }
 
         @Override
@@ -90,6 +92,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         viewHolder.description.setText(localDataSet.get(position).get(2));
         viewHolder.dueDate.setText(localDataSet.get(position).get(3));
         viewHolder.itemNumber.setText(String.valueOf(position + 1));
+        viewHolder.todoColor.setBackgroundColor(Integer.parseInt(localDataSet.get(position).get(5)));
 
         // Edit task OnClickListener
         viewHolder.todoEdit.setOnClickListener(viewHolder);
