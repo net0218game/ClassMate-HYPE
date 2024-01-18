@@ -1,9 +1,6 @@
 package com.hype.classmate.ui.home;
 
 import android.annotation.SuppressLint;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,17 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hype.classmate.MainActivity;
 import com.hype.classmate.R;
-import com.hype.classmate.databinding.FragmentHomeBinding;
 import com.hype.classmate.ui.login.LoginActivity;
-import com.hype.classmate.widgets.timetable.TimetableWidget;
-import com.hype.classmate.widgets.todo.TodoWidget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +35,7 @@ import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+
     private FirebaseAuth mAuth;
     FirebaseUser user;
     RecyclerView classRecyclerView, todoRecyclerView;
@@ -58,7 +51,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mAuth = FirebaseAuth.getInstance();
-        updateWidget();
 
         RecyclerView.Adapter<HomeClassAdapter.ViewHolder> homeClassAdapter = new HomeClassAdapter(homeClassList);
         RecyclerView.Adapter<HomeTodoAdapter.ViewHolder> homeTodoAdapter = new HomeTodoAdapter(homeTodoList);
@@ -87,7 +79,6 @@ public class HomeFragment extends Fragment {
             getClasses();
             getTodoList();
             FirebaseDatabase.getInstance().getReference("Users/" + user.getUid()).addValueEventListener(new ValueEventListener() {
-
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     title.setText("Welcome " + Objects.requireNonNull(snapshot.child("name").getValue()).toString());
@@ -110,7 +101,6 @@ public class HomeFragment extends Fragment {
         updateWidgetsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateWidget();
 
                 int reqCode = 1;
                 Intent intent = new Intent(getContext(), MainActivity.class);
@@ -125,7 +115,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 
     public void getClasses() {
@@ -138,7 +127,6 @@ public class HomeFragment extends Fragment {
                 if (day.equals("Saturday") || day.equals("Sunday")) {
                     day = "Monday";
                 }
-                updateWidget();
 
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
@@ -215,16 +203,5 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public void updateWidget() {
-        Context context = requireContext();
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        ComponentName todoWidget = new ComponentName(context, TodoWidget.class);
-        int[] todoAppWidgetIds = appWidgetManager.getAppWidgetIds(todoWidget);
-        appWidgetManager.notifyAppWidgetViewDataChanged(todoAppWidgetIds, R.id.widgetListView);
-
-        ComponentName timetableWidget = new ComponentName(context, TimetableWidget.class);
-        int[] timetableAppWidgetIds = appWidgetManager.getAppWidgetIds(timetableWidget);
-        appWidgetManager.notifyAppWidgetViewDataChanged(timetableAppWidgetIds, R.id.timetableWidgetListView);
-    }
 }
