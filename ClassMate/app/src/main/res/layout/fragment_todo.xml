@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="5dp"
-                android:drawableLeft="@drawable/baseline_calendar_month_24"
+                android:drawableLeft="@drawable/baseline_hourglass_empty_24"
                 android:drawablePadding="10dp"
                 android:text="Future Events"
                 android:textSize="15dp" />

@@ -34,7 +34,12 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView todoCard;
-        TextView title, subject, dueDate, description, itemNumber, category;
+        TextView title;
+        TextView subject;
+        TextView dueDate;
+        TextView description;
+        TextView itemNumber;
+        TextView category;
         CheckBox isDone;
         ImageView todoEdit;
         Button todoColor;

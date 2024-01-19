@@ -8,15 +8,31 @@
     android:paddingBottom="56dp"
     tools:context=".ui.notes.NotesFragment">
 
-    <!-- http://blog.sqisland.com/2014/12/recyclerview-grid-with-header.html -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/today_recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/note_item" />
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/noNotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/outline_cancel_24"
+            android:text="You don't have any notes yet." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notes_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/note_item" />
+    </LinearLayout>
+
+    <!-- http://blog.sqisland.com/2014/12/recyclerview-grid-with-header.html -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addTodoButton"
+        android:id="@+id/addNoteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

@@ -8,9 +8,9 @@
         android:title="Timetable" />
 
     <item
-        android:id="@+id/navigation_calendar"
-        android:icon="@drawable/baseline_calendar_month_24"
-        android:title="Calendar" />
+        android:id="@+id/navigation_notes"
+        android:icon="@drawable/outline_edit_24"
+        android:title="Notes" />
 
     <item
         android:id="@+id/navigation_home"

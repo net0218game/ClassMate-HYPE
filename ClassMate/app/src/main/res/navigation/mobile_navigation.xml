@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_test_timetable" />
 
     <fragment
-        android:id="@+id/navigation_calendar"
-        android:name="com.hype.classmate.ui.calendar.CalendarFragment"
-        android:label="Calendar"
-        tools:layout="@layout/fragment_calendar" />
+        android:id="@+id/navigation_notes"
+        android:name="com.hype.classmate.ui.notes.NotesFragment"
+        android:label="Notes"
+        tools:layout="@layout/fragment_notes" />
 
     <fragment
         android:id="@+id/navigation_home"

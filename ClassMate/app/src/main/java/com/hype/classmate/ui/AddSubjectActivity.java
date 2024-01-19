@@ -31,7 +31,6 @@ public class AddSubjectActivity extends AppCompatActivity {
     Button addSubjectButton, mPickColorButton;
     TextView addClassButton;
     FirebaseAuth mAuth;
-    FirebaseDatabase db;
     DatabaseReference dbReference;
     private int mDefaultColor;
 
