@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Weboldal.iml" filepath="$PROJECT_DIR$/.idea/Weboldal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mobile-app-introduction-template-master.iml" filepath="$PROJECT_DIR$/.idea/mobile-app-introduction-template-master.iml" />
     </modules>
   </component>
 </project>

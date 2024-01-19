@@ -1,63 +1,87 @@
-<!DOCTYPE html>
-<html>
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-    }
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    .bgimg {
-        background-image: url('background.png');
-        height: 100%;
-        background-position: center;
-        background-size: cover;
-        position: relative;
-        color: white;
-        font-family: "Courier New", Courier, monospace;
-        font-size: 25px;
-    }
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
 
-    .topleft {
-        position: absolute;
-        top: 0;
-        left: 16px;
-    }
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
 
-    .bottomleft {
-        position: absolute;
-        bottom: 0;
-        left: 16px;
-    }
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
 
-    .middle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    }
-
-    hr {
-        margin: auto;
-        width: 40%;
-    }
-</style>
+    <title>ClassMate</title>
+</head>
 <body>
+<header class="cd-header">
+    <div id="cd-logo"><img src="img/CLASSMATE_LOGO.png" alt="Logo"></div>
+    <div id="cd-action"><a href="https://play.google.com/store/apps/details?id=com.hype.classmate"
+                           class="btn">Download</a></div>
+</header>
 
-<div class="bgimg">
-    <div class="topleft">
-        <img src="logo.png" alt="ClassMate Logo" width="10%">
+<main class="cd-main-content">
+    <div class="cd-product-intro">
+        <img src="img/CLASSMATE_LOGO.png" alt="ClassMate Logo">
+        <p>Click on the Start button to see the animated slideshow.</p>
+        <div class="cd-triggers">
+            <a href="https://play.google.com/store/apps/details?id=com.hype.classmate" class="btn">Download</a>
+            <a href="#cd-product-tour" class="btn salmon" data-type="cd-tour">Start</a>
+        </div>
+    </div> <!-- cd-product-intro -->
 
-    </div>
-    <div class="middle">
-        <h1>COMING SOON</h1>
-        <hr>
-        <img src="CLASSMATE_LOGO.png" alt="ClassMate Logo" width="100%">
-    </div>
-    <div class="bottomleft">
-        <img src="image.png" alt="ClassMate Logo" width="30%">
-    </div>
-</div>
+    <div id="cd-product-tour">
+        <ul>
+            <li class="cd-single-item cd-active">
+                <div class="cd-caption">
+                    <h2>Introducing: ClassMate</h2>
+                    <p>An online school companion to make your school life easier</p>
+                </div>
+                <div class="cd-image-container">
+                    <div>
+                        <img src="img/home-left.png" alt="Screen Preview 1">
 
+                    </div>
+                </div>
+            </li>
+            <li class="cd-single-item cd-not-visible cd-move-right">
+                <div class="cd-caption">
+                    <h2>Timetable, Tasks & Notes:<br> All In One Place</h2>
+                    <p>ClassMate lets you add your own classes and events to your timetable. Add events connected to
+                        your classes and keep track of your tasks!
+                    </p>
+                </div>
+                <div class="cd-image-container">
+                    <div>
+                        <img src="img/Screenshot_20240116_182849.png" alt="Screen Preview 3">
+
+                    </div>
+                </div>
+            </li>
+            <li class="cd-single-item cd-not-visible cd-move-right">
+                <div class="cd-caption">
+                    <h2>Tasks</h2>
+                    <p> Easily manage your tasks with ClassMate!:D</p>
+                </div>
+                <div class="cd-image-container">
+                    <div>
+                        <img src="img/Screenshot_20240118_175456.png" alt="Screen Preview 3">
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div> <!-- cd-product-tour -->
+
+    <div class="cd-slider-nav">
+        <a class="cd-prev" href="#0">Previous</a>
+        <a class="cd-next" href="#0">Next</a>
+    </div> <!-- cd-slider-nav -->
+
+    <div class="cd-loader"></div> <!-- top loading bar -->
+</main>
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
