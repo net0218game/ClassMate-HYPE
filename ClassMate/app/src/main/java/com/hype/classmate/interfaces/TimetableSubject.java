@@ -1,13 +1,12 @@
 package com.hype.classmate.interfaces;
 
 public class TimetableSubject {
-    String className, teacher, note;
-    int color;
+    String className, teacher, note, color;
 
     public TimetableSubject() {
     }
 
-    public TimetableSubject(String className, String teacher, String note, int color) {
+    public TimetableSubject(String className, String teacher, String note, String color) {
         this.className = className;
         this.teacher = teacher;
         this.note = note;
@@ -38,11 +37,11 @@ public class TimetableSubject {
         this.note = note;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
 }

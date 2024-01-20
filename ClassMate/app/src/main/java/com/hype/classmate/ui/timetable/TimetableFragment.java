@@ -81,7 +81,9 @@ public class TimetableFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), AddSubjectActivity.class);
                 startActivity(intent);
             }
-        });
+        }
+
+        );
         return view;
     }
 

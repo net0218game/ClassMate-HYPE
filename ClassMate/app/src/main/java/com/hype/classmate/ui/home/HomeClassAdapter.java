@@ -1,5 +1,6 @@
 package com.hype.classmate.ui.home;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,7 @@ public class HomeClassAdapter extends RecyclerView.Adapter<HomeClassAdapter.View
         viewHolder.startTime.setText(localDataSet.get(position).get(3));
         viewHolder.endTime.setText(localDataSet.get(position).get(4));
         Drawable[] drawable = viewHolder.classItem.getCompoundDrawables();
-        drawable[0].setTint(Integer.parseInt(localDataSet.get(position).get(1)));
+        drawable[0].setTint(Color.parseColor(localDataSet.get(position).get(1)));
 
         viewHolder.classItem.setOnClickListener(viewHolder);
     }

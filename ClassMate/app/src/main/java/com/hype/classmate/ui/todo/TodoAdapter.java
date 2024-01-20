@@ -2,6 +2,7 @@ package com.hype.classmate.ui.todo;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +99,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         viewHolder.description.setText(localDataSet.get(position).get(2));
         viewHolder.dueDate.setText(localDataSet.get(position).get(3));
         viewHolder.itemNumber.setText(String.valueOf(position + 1));
-        viewHolder.todoColor.setBackgroundColor(Integer.parseInt(localDataSet.get(position).get(5)));
+        viewHolder.todoColor.setBackgroundColor(Color.parseColor(localDataSet.get(position).get(5)));
 
         // Edit task OnClickListener
         viewHolder.todoEdit.setOnClickListener(viewHolder);

@@ -51,11 +51,11 @@ public class AddSubjectActivity extends AppCompatActivity {
         mDefaultColor = 0;
 
         mPickColorButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openColorPickerDialogue();
-                    }
-                });
+            @Override
+            public void onClick(View v) {
+                openColorPickerDialogue();
+            }
+        });
         addSubjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +67,7 @@ public class AddSubjectActivity extends AppCompatActivity {
 
                 FirebaseUser user = mAuth.getCurrentUser();
 
-                TimetableSubject timetableSubject = new TimetableSubject(className, teacher, note, mDefaultColor);
+                TimetableSubject timetableSubject = new TimetableSubject(className, teacher, note, String.format("#%06X", (0xFFFFFF & mDefaultColor)));
 
                 // :) nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
                 dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
@@ -88,12 +88,11 @@ public class AddSubjectActivity extends AppCompatActivity {
         addClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (AddSubjectActivity.this, AddClassActivity.class);
+                Intent intent = new Intent(AddSubjectActivity.this, AddClassActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-
 
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -122,7 +121,7 @@ public class AddSubjectActivity extends AppCompatActivity {
                         // color picker dialog
                         mDefaultColor = color;
                         mPickColorButton.setBackgroundColor(mDefaultColor);
-                        Log.d("color", String.valueOf(mDefaultColor));
+                        Log.d("color", String.format("#%06X", (0xFFFFFF & mDefaultColor)));
                     }
                 });
         colorPickerDialogue.show();
