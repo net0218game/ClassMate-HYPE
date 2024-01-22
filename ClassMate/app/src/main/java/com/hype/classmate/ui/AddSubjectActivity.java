@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hype.classmate.MainActivity;
 import com.hype.classmate.R;
 import com.hype.classmate.interfaces.TimetableSubject;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hype.classmate.ui.login.LoginActivity;
 
 import java.util.Objects;
 
@@ -59,29 +61,35 @@ public class AddSubjectActivity extends AppCompatActivity {
         addSubjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!classNameInput.getText().toString().equals("") && !teacherInput.getText().toString().equals("")) {
 
-                String className, teacher, note;
-                className = classNameInput.getText().toString();
-                teacher = teacherInput.getText().toString();
-                note = noteInput.getText().toString();
+                    String className, teacher, note;
+                    className = classNameInput.getText().toString();
+                    teacher = teacherInput.getText().toString();
+                    note = noteInput.getText().toString();
 
-                FirebaseUser user = mAuth.getCurrentUser();
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                TimetableSubject timetableSubject = new TimetableSubject(className, teacher, note, String.format("#%06X", (0xFFFFFF & mDefaultColor)));
+                    TimetableSubject timetableSubject = new TimetableSubject(className, teacher, note, String.format("#%06X", (0xFFFFFF & mDefaultColor)));
 
-                // :) nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
-                dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
-                // felhasznalo IDjevel rogziti a nevet databaseben
-                assert user != null;
-                dbReference.child("Subjects").child(user.getUid() + "/" + className).setValue(timetableSubject).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        classNameInput.setText("");
-                        teacherInput.setText("");
-                        noteInput.setText("");
-                        Toast.makeText(AddSubjectActivity.this, "Subject Added", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    // :) nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
+                    dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
+                    // felhasznalo IDjevel rogziti a nevet databaseben
+                    assert user != null;
+                    dbReference.child("Subjects").child(user.getUid() + "/" + className).setValue(timetableSubject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            classNameInput.setText("");
+                            teacherInput.setText("");
+                            noteInput.setText("");
+                            Toast.makeText(AddSubjectActivity.this, "Subject Added", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Class and teacher must not be null.", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 

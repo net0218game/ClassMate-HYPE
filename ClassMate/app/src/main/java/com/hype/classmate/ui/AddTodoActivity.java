@@ -100,33 +100,36 @@ public class AddTodoActivity extends AppCompatActivity {
         addTodoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!subjectSpinner.getText().toString().equals("") && !categorySpinner.getText().toString().equals("") && !todoTitleInput.getText().toString().equals("") && !dateInput.getText().toString().equals("")) {
+                    String title, subject, category, dueDate, description;
+                    title = todoTitleInput.getText().toString();
+                    subject = subjectSpinner.getText().toString();
+                    category = categorySpinner.getText().toString();
+                    dueDate = dateInput.getText().toString();
+                    description = noteInput.getText().toString();
 
-                String title, subject, category, dueDate, description;
-                title = todoTitleInput.getText().toString();
-                subject = subjectSpinner.getText().toString();
-                category = categorySpinner.getText().toString();
-                dueDate = dateInput.getText().toString();
-                description = noteInput.getText().toString();
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                FirebaseUser user = mAuth.getCurrentUser();
+                    TodoItem todoItem = new TodoItem(title, subject, category, dueDate, description, Boolean.FALSE);
 
-                TodoItem todoItem = new TodoItem(title, subject, category, dueDate, description, Boolean.FALSE);
-
-                // nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
-                dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
-                // felhasznalo IDjevel rogziti a nevet databaseben
-                assert user != null;
-                // datum es ido megszerzese
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-                String currentDateandTime = sdf.format(new Date());
-                // A jelenlegi datum lesz a class field neve yyyyMMddHHmmss formatumban, mert az biztos h unique:D
-                dbReference.child("Todo").child(user.getUid() + "/" + currentDateandTime).setValue(todoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(AddTodoActivity.this, "Task Added", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
+                    // nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
+                    dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
+                    // felhasznalo IDjevel rogziti a nevet databaseben
+                    assert user != null;
+                    // datum es ido megszerzese
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+                    String currentDateandTime = sdf.format(new Date());
+                    // A jelenlegi datum lesz a class field neve yyyyMMddHHmmss formatumban, mert az biztos h unique:D
+                    dbReference.child("Todo").child(user.getUid() + "/" + currentDateandTime).setValue(todoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(AddTodoActivity.this, "Task Added", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Fields must not be null.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

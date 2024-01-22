@@ -15,6 +15,9 @@ import androidx.lifecycle.MutableLiveData;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -54,19 +57,12 @@ public class TestTimetableFragment extends Fragment {
     ArrayList<ArrayList<String>> orak = new ArrayList<ArrayList<String>>();
     Integer classId = 0;
     FloatingActionButton addClassButton;
-
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     ArrayList<ScheduleEntity> scheduleList = new ArrayList<>();
-
     String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-
     MyCustomPagingAdapter adapter = new MyCustomPagingAdapter();
-
-
-    MinTimeTableView table;
-
-    Button todayButton, changeViewButton;
-
+    WeekView weekView;
+    private Menu menu;
     ArrayList<MyEvent> events = new ArrayList<>();
 
     public TestTimetableFragment() {
@@ -84,34 +80,10 @@ public class TestTimetableFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_test_timetable, container, false);
 
-        WeekView weekView = view.findViewById(R.id.weekView);
-        todayButton = view.findViewById(R.id.todayButton);
-        changeViewButton = view.findViewById(R.id.changeView);
+        setHasOptionsMenu(true);
+
+        weekView = view.findViewById(R.id.weekView);
         addClassButton = view.findViewById(R.id.addClassButton);
-
-        // Jump to today
-        todayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weekView.scrollToDate(Calendar.getInstance());
-            }
-        });
-
-        // Day or week view
-        changeViewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (weekView.getNumberOfVisibleDays() == 5) {
-                    weekView.setNumberOfVisibleDays(1);
-                    changeViewButton.setText("Week");
-
-                } else if (weekView.getNumberOfVisibleDays() == 1) {
-                    weekView.setNumberOfVisibleDays(5);
-                    changeViewButton.setText("Day");
-
-                }
-            }
-        });
 
         addClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +92,6 @@ public class TestTimetableFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         weekView.setHorizontalScrollingEnabled(true);
         weekView.setShowFirstDayOfWeekFirst(true);
@@ -194,5 +165,32 @@ public class TestTimetableFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu items for use in the action bar
+        inflater.inflate(R.menu.timetable_menu, menu);
+        this.menu = menu;
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.timetable_viewmode_action) {
+            // Day or week view
+            if (weekView.getNumberOfVisibleDays() == 5) {
+                weekView.setNumberOfVisibleDays(1);
+                menu.getItem(0).setIcon(R.drawable.baseline_calendar_month_24);
+            } else if (weekView.getNumberOfVisibleDays() == 1) {
+                weekView.setNumberOfVisibleDays(5);
+                menu.getItem(0).setIcon(R.drawable.baseline_calendar_view_day_24);
+            }
+        } else if (item.getItemId() == R.id.timetable_today_action) {
+            // Jump to today
+            weekView.scrollToDate(Calendar.getInstance());
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

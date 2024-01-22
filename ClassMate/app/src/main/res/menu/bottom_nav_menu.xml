@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/navigation_timetable"
-        android:icon="@drawable/baseline_calendar_view_day_24"
+        android:icon="@drawable/baseline_calendar_month_24"
         android:title="Timetable" />
 
     <item
@@ -20,7 +20,7 @@
     <item
         android:id="@+id/navigation_todo"
         android:icon="@drawable/todo"
-        android:title="To DO" />
+        android:title="To Do" />
 
     <item
         android:id="@+id/navigation_settings"

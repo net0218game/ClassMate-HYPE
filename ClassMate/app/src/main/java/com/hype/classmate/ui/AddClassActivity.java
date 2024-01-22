@@ -137,36 +137,42 @@ public class AddClassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String subject, classroom, day, start, end;
-                subject = subjectSpinner.getText().toString();
-                classroom = classroomInput.getText().toString();
-                day = daySpinner.getText().toString();
-                start = startInput.getText().toString();
-                end = endInput.getText().toString();
+                if (!subjectSpinner.getText().toString().equals("") && !daySpinner.getText().toString().equals("") && !classroomInput.getText().toString().equals("") && !startInput.getText().toString().equals("") && !endInput.getText().toString().equals("")) {
+                    String subject, classroom, day, start, end;
+                    subject = subjectSpinner.getText().toString();
+                    classroom = classroomInput.getText().toString();
+                    day = daySpinner.getText().toString();
+                    start = startInput.getText().toString();
+                    end = endInput.getText().toString();
 
-                FirebaseUser user = mAuth.getCurrentUser();
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                TimetableClass timetableClass = new TimetableClass(subject, classroom, day, start, end);
+                    TimetableClass timetableClass = new TimetableClass(subject, classroom, day, start, end);
 
-                // nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
-                dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
-                // felhasznalo IDjevel rogziti a nevet databaseben
-                assert user != null;
-                // datum es ido megszerzese
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-                String currentDateandTime = sdf.format(new Date());
-                // A jelenlegi datum lesz a class field neve yyyyMMddHHmmss formatumban, mert az biztos h unique:D
-                dbReference.child("Classes").child(user.getUid() + "/" + currentDateandTime).setValue(timetableClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        subjectSpinner.setText("");
-                        classroomInput.setText("");
-                        daySpinner.setText("");
-                        startInput.setText("");
-                        endInput.setText("");
-                        Toast.makeText(AddClassActivity.this, "Class Added", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    // nem mindenkeppen kell a .getInstace()-be a link de neha buta:( es kell neki
+                    dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
+                    // felhasznalo IDjevel rogziti a nevet databaseben
+                    assert user != null;
+                    // datum es ido megszerzese
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+                    String currentDateandTime = sdf.format(new Date());
+                    // A jelenlegi datum lesz a class field neve yyyyMMddHHmmss formatumban, mert az biztos h unique:D
+                    dbReference.child("Classes").child(user.getUid() + "/" + currentDateandTime).setValue(timetableClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            subjectSpinner.setText("");
+                            classroomInput.setText("");
+                            daySpinner.setText("");
+                            startInput.setText("");
+                            endInput.setText("");
+                            Toast.makeText(AddClassActivity.this, "Class Added", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Input fields must not be null.", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 

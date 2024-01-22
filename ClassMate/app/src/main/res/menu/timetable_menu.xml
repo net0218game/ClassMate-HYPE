@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/timetable_viewmode_action"
+        android:icon="@drawable/baseline_calendar_view_day_24"
+        android:iconTint="@color/color7"
+        android:title="Week/Day View"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/timetable_today_action"
+        android:icon="@drawable/outline_event_24"
+        android:iconTint="@color/color7"
+        android:title="Today"
+        app:showAsAction="always" />
+</menu>

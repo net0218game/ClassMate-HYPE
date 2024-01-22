@@ -40,10 +40,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         mAuth = FirebaseAuth.getInstance();
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+
 
         emailInput = findViewById(R.id.loginEmailInput);
         passwordInput = findViewById(R.id.loginPasswordInput);
@@ -59,15 +59,12 @@ public class LoginActivity extends AppCompatActivity {
                 password = passwordInput.getText().toString();
 
                 progressBar.setVisibility(View.VISIBLE);
-
-                Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-                if(TextUtils.isEmpty(email)) {
+                if (TextUtils.isEmpty(email)) {
                     Toast.makeText(LoginActivity.this, "Enter your email to login.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Enter your password to login.", Toast.LENGTH_SHORT).show();
                     return;
                 }

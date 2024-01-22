@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -46,6 +49,10 @@ public class TodoFragment extends Fragment {
     ArrayList<ArrayList<String>> todayTodoList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> pastTodoList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> futureTodoList = new ArrayList<ArrayList<String>>();
+    private Menu menu;
+
+    Boolean showDone = false;
+
 
     TextView noEventToday, noEventPast, noEventFuture;
 
@@ -54,6 +61,7 @@ public class TodoFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
 
+        setHasOptionsMenu(true);
         getTodayTodoList();
         updateWidget();
 
@@ -100,7 +108,6 @@ public class TodoFragment extends Fragment {
                 futureTodoList.clear();
                 if (snapshot.child("Todo/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Todo/" + user.getUid()).getChildren()) {
-
                         ArrayList<String> todo = new ArrayList<String>();
                         String dateString = Objects.requireNonNull(classDataSnapshot.child("dueDate").getValue()).toString();
                         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
@@ -118,25 +125,44 @@ public class TodoFragment extends Fragment {
                         todo.add(6, Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent()).getKey()));
                         todo.add(7, Objects.requireNonNull(classDataSnapshot.child("category").getValue()).toString());
 
-                        try {
-                            Date date = format.parse(dateString);
-                            if (DateUtils.isToday(date.getTime())) {
-                                // Event is Today
-                                Log.d("anyadat", String.valueOf(date) + " Today event");
-                                todayTodoList.add(todo);
-                            } else if (new Date().after(date) && !Objects.equals(date, new Date())) {
-                                // Past Event
-                                Log.d("anyadat", String.valueOf(date) + " Past event");
-                                pastTodoList.add(todo);
-                            } else if (new Date().before(date) && date != tomorrow) {
-                                // Future events
-                                Log.d("anyadat", String.valueOf(date) + " Future event");
-                                futureTodoList.add(todo);
+                        if (showDone) {
+                            // show tasks that are done
+                            try {
+                                Date date = format.parse(dateString);
+                                if (DateUtils.isToday(date.getTime())) {
+                                    // Event is Today
+                                    todayTodoList.add(todo);
+                                } else if (new Date().after(date) && !Objects.equals(date, new Date())) {
+                                    // Past Event
+                                    pastTodoList.add(todo);
+                                } else if (new Date().before(date) && date != tomorrow) {
+                                    // Future events
+                                    futureTodoList.add(todo);
+                                }
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
                             }
-                        } catch (ParseException e) {
-                            throw new RuntimeException(e);
+                        } else {
+                            // hide tasks that are done
+                            // TODO: Bug - kipipalja azt ami meg nincsen keszen
+                            if (!Boolean.parseBoolean(todo.get(4))) {
+                                try {
+                                    Date date = format.parse(dateString);
+                                    if (DateUtils.isToday(date.getTime())) {
+                                        // Event is Today
+                                        todayTodoList.add(todo);
+                                    } else if (new Date().after(date) && !Objects.equals(date, new Date())) {
+                                        // Past Event
+                                        pastTodoList.add(todo);
+                                    } else if (new Date().before(date) && date != tomorrow) {
+                                        // Future events
+                                        futureTodoList.add(todo);
+                                    }
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
                         }
-
                     }
                 }
 
@@ -167,5 +193,36 @@ public class TodoFragment extends Fragment {
             int[] todoAppWidgetIds = appWidgetManager.getAppWidgetIds(todoWidget);
             appWidgetManager.notifyAppWidgetViewDataChanged(todoAppWidgetIds, R.id.widgetListView);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu items for use in the action bar
+        inflater.inflate(R.menu.todo_menu, menu);
+        this.menu = menu;
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.todo_viewmode_action) {
+            // Show / Hide Done Tasks
+            if (showDone) {
+                menu.getItem(0).setIcon(R.drawable.baseline_check_box_outline_blank_24);
+                showDone = false;
+                getTodayTodoList();
+            } else {
+                menu.getItem(0).setIcon(R.drawable.baseline_check_box_24);
+                showDone = true;
+                getTodayTodoList();
+            }
+
+        } else if (item.getItemId() == R.id.todo_archiveDone_action) {
+            // Archive Done Tasks
+        } else if (item.getItemId() == R.id.todo_delete_action) {
+            // Delete All Tasks
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
