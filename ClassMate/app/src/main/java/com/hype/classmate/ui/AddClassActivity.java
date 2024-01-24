@@ -87,8 +87,8 @@ public class AddClassActivity extends AppCompatActivity {
 
                             }
                         }, hour, minute, true);
-                // at last we are calling show to
-                // display our time picker dialog.
+
+
                 timePickerDialog.show();
             }
         });
@@ -171,8 +171,6 @@ public class AddClassActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Input fields must not be null.", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 

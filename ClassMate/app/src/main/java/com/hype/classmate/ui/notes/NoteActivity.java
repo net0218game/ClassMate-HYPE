@@ -39,16 +39,20 @@ public class NoteActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!titleEditText.getText().toString().equals("")) {
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                FirebaseUser user = mAuth.getCurrentUser();
+                    NoteItem noteItem = new NoteItem(titleEditText.getText().toString(), bodyEditText.getText().toString());
+                    dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
 
-                NoteItem noteItem = new NoteItem(titleEditText.getText().toString(), bodyEditText.getText().toString());
-                dbReference = FirebaseDatabase.getInstance("https://classmate-140fd-default-rtdb.firebaseio.com/").getReference();
+                    // felhasznalo IDjevel rogziti a nevet databaseben
+                    assert user != null;
+                    dbReference.child("Notes").child(user.getUid() + "/" + titleEditText.getText().toString()).setValue(noteItem);
+                    finish();
+                } else {
+                    Toast.makeText(NoteActivity.this, "Title must not be null.", Toast.LENGTH_SHORT).show();
 
-                // felhasznalo IDjevel rogziti a nevet databaseben
-                assert user != null;
-                dbReference.child("Notes").child(user.getUid() + "/" + titleEditText.getText().toString()).setValue(noteItem);
-                finish();
+                }
             }
         });
 

@@ -3,6 +3,7 @@ package com.hype.classmate.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,21 +26,29 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hype.classmate.ui.timetablefragment.ClassAdapter;
+
+import java.lang.reflect.GenericDeclaration;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
 
     private FirebaseAuth mAuth;
-    FirebaseUser user;
-    RecyclerView classRecyclerView, todoRecyclerView;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    ;
+    RecyclerView classRecyclerView, todoRecyclerView, currentClassRecyclerView;
     ArrayList<ArrayList<String>> homeClassList = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> currentClassList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> homeTodoList = new ArrayList<ArrayList<String>>();
     TextView title;
     CardView classesCard, todoCard;
@@ -54,27 +63,27 @@ public class HomeFragment extends Fragment {
 
         RecyclerView.Adapter<HomeClassAdapter.ViewHolder> homeClassAdapter = new HomeClassAdapter(homeClassList);
         RecyclerView.Adapter<HomeTodoAdapter.ViewHolder> homeTodoAdapter = new HomeTodoAdapter(homeTodoList);
+        RecyclerView.Adapter<ClassAdapter.ViewHolder> currentClassAdapter = new ClassAdapter(currentClassList);
 
         // LayoutManager beallitasa RecyclerView-hoz.
         classRecyclerView = view.findViewById(R.id.homeClassRecyclerView);
         classRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // adapter beallitasa
         classRecyclerView.setAdapter(homeClassAdapter);
+
+        currentClassRecyclerView = view.findViewById(R.id.currentClassRecyclerView);
+        currentClassRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        
+        currentClassRecyclerView.setAdapter(currentClassAdapter);
 
         todoRecyclerView = view.findViewById(R.id.homeTodoRecyclerView);
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // adapter beallitasa
         todoRecyclerView.setAdapter(homeTodoAdapter);
-
 
         emptyTodoList = view.findViewById(R.id.emptyTasks);
         emptyClassList = view.findViewById(R.id.emptyClasses);
 
-
         title = view.findViewById(R.id.homeTitle);
-        user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
             getClasses();
             getTodoList();
@@ -101,7 +110,6 @@ public class HomeFragment extends Fragment {
         updateWidgetsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int reqCode = 1;
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 MainActivity.showNotification(getContext(), "SZIA SZILAAARD", "MUKODIK!!!Ez egy ClassMate ertesites!!! Szia Szilard!!!!", intent, reqCode);
@@ -118,9 +126,12 @@ public class HomeFragment extends Fragment {
     }
 
     public void getClasses() {
+
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 homeClassList.clear();
+                currentClassList.clear();
+
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 Date date = new Date();
                 String day = simpleDateFormat.format(date);
@@ -137,8 +148,15 @@ public class HomeFragment extends Fragment {
                             ora.add(2, Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent()).getKey()));
                             ora.add(3, Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString());
                             ora.add(4, Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString());
+                            ora.add(5, Objects.requireNonNull(classDataSnapshot.child("classroom").getValue()).toString());
+                            ora.add(6, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("teacher").getValue()).toString());
 
                             homeClassList.add(ora);
+
+                            if (isWithin(Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString(), Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString())) {
+                                currentClassList.add(ora);
+                                Log.d("jelenlegi", Objects.requireNonNull(classDataSnapshot.child("subject").getValue()) + " Most van");
+                            }
                         }
                     }
                 }
@@ -157,6 +175,9 @@ public class HomeFragment extends Fragment {
                 Collections.sort(homeClassList, myComparator);
 
                 classRecyclerView.getAdapter().notifyDataSetChanged();
+                currentClassRecyclerView.getAdapter().notifyDataSetChanged();
+
+                Log.d("jelenlegi", currentClassList.toString());
 
                 if (homeClassList.isEmpty()) {
                     emptyClassList.setVisibility(View.VISIBLE);
@@ -204,4 +225,21 @@ public class HomeFragment extends Fragment {
     }
 
 
+    public static boolean isWithin(String startSH, String stopSH) {
+        try {
+            Date now = new Date();
+            SimpleDateFormat parser = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            Date startTime = parser.parse(startSH);
+            Date endTime = parser.parse(stopSH);
+            Date nowTime = parser.parse(now.getHours() + ":" + now.getMinutes());
+
+            if (startTime.after(endTime)) {
+                return endTime.after(nowTime);
+            } else {
+                return startTime.before(nowTime) && endTime.after(nowTime);
+            }
+        } catch (java.text.ParseException e) {
+            return false;
+        }
+    }
 }

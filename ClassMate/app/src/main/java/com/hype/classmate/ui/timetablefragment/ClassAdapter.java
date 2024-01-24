@@ -5,15 +5,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hype.classmate.R;
 import com.hype.classmate.ui.dialog.EditClassDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> {
@@ -21,33 +29,33 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     ArrayList<ArrayList<String>> localDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView startTime, endTime, classroom, classTeacherTitle, classTitle;
+        private final TextView startTime, endTime, classroom, classTeacherTitle, classTitle, startTime2, endTime2;
         private final CardView classCard;
+
+        private final Button currentClassColor;
+        private final ProgressBar progressBar;
+
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-            classTitle = view.findViewById(R.id.classTitle);
-            classTeacherTitle = view.findViewById(R.id.classTeacherTitle);
-            classroom = view.findViewById(R.id.classroom);
+            classTitle = view.findViewById(R.id.currentClassTitle);
+            classTeacherTitle = view.findViewById(R.id.currentClassTeacher);
+            classroom = view.findViewById(R.id.currentClassRoom);
             startTime = view.findViewById(R.id.startTime);
             endTime = view.findViewById(R.id.endTime);
-            classCard = view.findViewById(R.id.classCard);
+            startTime2 = view.findViewById(R.id.currentClassStartTime);
+            endTime2 = view.findViewById(R.id.currentClassEndTime);
+            classCard = view.findViewById(R.id.currentClass);
+            progressBar = view.findViewById(R.id.currentClassProgressBar);
+            currentClassColor = view.findViewById(R.id.currentClassColor);
         }
-
-        private String m_Text = "";
 
         @Override
         public void onClick(View v) {
             int position = this.getAbsoluteAdapterPosition();
-            // TODO: Ora kattintas implementalasa
+            // TODO: Open timetable fragment
             // https://developer.android.com/develop/ui/views/components/dialogs
-
-            EditClassDialog alert = new EditClassDialog();
-            alert.showDialog((Activity) v.getContext(), String.valueOf(this.classCard.getTag()),
-                    this.classTitle.getText().toString(), this.classroom.getText().toString(),
-                    "Monday", this.startTime.getText().toString(),
-                    this.endTime.getText().toString());
         }
     }
 
@@ -60,7 +68,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.classitem, viewGroup, false);
+                .inflate(R.layout.current_class, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -72,13 +80,33 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
 
         // Get element from your dataset at this position and replace the contents of the view with that element
         viewHolder.classTitle.setText(localDataSet.get(position).get(0));
-        viewHolder.classTeacherTitle.setText(localDataSet.get(position).get(1));
-        viewHolder.classroom.setText(localDataSet.get(position).get(3));
-        viewHolder.startTime.setText(localDataSet.get(position).get(5));
-        viewHolder.endTime.setText(localDataSet.get(position).get(6));
-        viewHolder.classCard.setCardBackgroundColor(Integer.parseInt(localDataSet.get(position).get(7)));
+        viewHolder.classTeacherTitle.setText(localDataSet.get(position).get(6));
+        viewHolder.classroom.setText(localDataSet.get(position).get(5));
+        viewHolder.startTime.setText(localDataSet.get(position).get(3));
+        viewHolder.endTime.setText(localDataSet.get(position).get(4));
+        viewHolder.startTime2.setText(localDataSet.get(position).get(3));
+        viewHolder.endTime2.setText(localDataSet.get(position).get(4));
+        viewHolder.progressBar.setProgress(progress(localDataSet.get(position).get(3), localDataSet.get(position).get(4)));
+        viewHolder.progressBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor(localDataSet.get(position).get(1))));
+        viewHolder.currentClassColor.setBackgroundColor(Color.parseColor(localDataSet.get(position).get(1)));
         viewHolder.classCard.setOnClickListener(viewHolder);
-        viewHolder.classCard.setTag(localDataSet.get(position).get(8));
+    }
+
+    public static Integer progress(String startSH, String stopSH) {
+        try {
+            Date now = new Date();
+            SimpleDateFormat parser = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            Date startTime = parser.parse(startSH);
+            Date endTime = parser.parse(stopSH);
+            Date nowTime = parser.parse(now.getHours() + ":" + now.getMinutes());
+
+            Float all = (float) (endTime.getTime() - startTime.getTime());
+
+            return (int) (((nowTime.getTime() - startTime.getTime()) / all) * 100);
+
+        } catch (java.text.ParseException e) {
+            return null;
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

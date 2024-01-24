@@ -33,6 +33,13 @@
                 android:textSize="40dp"
                 android:textStyle="bold" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/currentClassRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="1"
+                tools:listitem="@layout/current_class" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,6 +133,7 @@
                         android:id="@+id/homeClassRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        tools:itemCount="3"
                         tools:listitem="@layout/home_class_item" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -181,6 +189,7 @@
                         android:id="@+id/homeTodoRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        tools:itemCount="3"
                         tools:listitem="@layout/home_todo_item" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

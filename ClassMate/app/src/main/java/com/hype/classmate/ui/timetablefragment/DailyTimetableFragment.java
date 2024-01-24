@@ -46,7 +46,6 @@ public class DailyTimetableFragment extends Fragment {
 
         tabLayout = requireActivity().findViewById(R.id.tabLayout);
 
-        RecyclerView.Adapter<ClassAdapter.ViewHolder> adapter = new ClassAdapter(orak);
 
         // LayoutManager beallitasa RecyclerView-hoz.
         recyclerView
@@ -55,7 +54,6 @@ public class DailyTimetableFragment extends Fragment {
                 new LinearLayoutManager(getContext()));
 
         // adapter beallitasa
-        recyclerView.setAdapter(adapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

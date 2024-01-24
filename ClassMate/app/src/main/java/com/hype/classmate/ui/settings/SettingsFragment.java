@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,9 +32,9 @@ import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
 
-    private SettingsViewModel mViewModel;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     TextView usernameTextView;
+    TextView linkWebApp, linkGooglePlay, linkFeedback, linkFileUp;
 
 
     public static SettingsFragment newInstance() {
@@ -50,6 +51,44 @@ public class SettingsFragment extends Fragment {
         Switch nightmodeSwitch = view.findViewById(R.id.nightmodeSwitch);
 
         usernameTextView = view.findViewById(R.id.usernameTextView);
+        linkWebApp = view.findViewById(R.id.linkWebApp);
+        linkGooglePlay = view.findViewById(R.id.linkGooglePlay);
+        linkFeedback = view.findViewById(R.id.linkFeedback);
+        linkFileUp = view.findViewById(R.id.linkFileUp);
+
+        linkWebApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://classmate.hype.cool/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        linkGooglePlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.hype.classmate");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        linkFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLSdarN8QhYqZOHICgvU6BJF1NzSNbTA7kQhEqRzaM8faAfuOQA/viewform?usp=sf_link"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        linkFileUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://fileup.site/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,14 +150,6 @@ public class SettingsFragment extends Fragment {
         }
 
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        // TODO: Use the ViewModel
-
     }
 
 }

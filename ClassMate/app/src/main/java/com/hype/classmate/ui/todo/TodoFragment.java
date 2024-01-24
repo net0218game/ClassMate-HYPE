@@ -101,6 +101,9 @@ public class TodoFragment extends Fragment {
     }
 
     public void getTodayTodoList() {
+        todayTodoList.clear();
+        pastTodoList.clear();
+        futureTodoList.clear();
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 todayTodoList.clear();

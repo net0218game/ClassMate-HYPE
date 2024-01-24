@@ -30,11 +30,10 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-
     EditText emailInput, passwordInput;
     Button loginButton;
     ProgressBar progressBar;
-    TextView registerNow;
+    TextView registerNow, forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.loginLoading);
         registerNow = findViewById(R.id.registerNowButton);
+        forgotPassword = findViewById(R.id.forgotPasswordButton);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +100,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 startActivity(intent);
                 finish();
             }
