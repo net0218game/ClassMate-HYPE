@@ -75,18 +75,16 @@ public class AddClassActivity extends AppCompatActivity {
                 int minute = c.get(Calendar.MINUTE);
 
                 // on below line we are initializing our Time Picker Dialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(AddClassActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @SuppressLint("SetTextI18n")
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay,
-                                                  int minute) {
-                                // on below line we are setting selected time
-                                // in our text view.
-                                startInput.setText(hourOfDay + ":" + minute);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddClassActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        // on below line we are setting selected time
+                        // in our text view.
+                        startInput.setText(hourOfDay + ":" + minute);
 
-                            }
-                        }, hour, minute, true);
+                    }
+                }, hour, minute, true);
 
 
                 timePickerDialog.show();
@@ -105,17 +103,15 @@ public class AddClassActivity extends AppCompatActivity {
                 int minute = c.get(Calendar.MINUTE);
 
                 // on below line we are initializing our Time Picker Dialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(AddClassActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @SuppressLint("SetTextI18n")
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay,
-                                                  int minute) {
-                                // on below line we are setting selected time
-                                // in our text view.
-                                endInput.setText(hourOfDay + ":" + minute);
-                            }
-                        }, hour, minute, true);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddClassActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        // on below line we are setting selected time
+                        // in our text view.
+                        endInput.setText(hourOfDay + ":" + minute);
+                    }
+                }, hour, minute, true);
                 // at last we are calling show to
                 // display our time picker dialog.
                 timePickerDialog.show();

@@ -32,16 +32,14 @@ public class EditClassDialog {
     FirebaseAuth mAuth;
     DatabaseReference dbReference;
 
-    public void showDialog(Activity activity, String id, String msg, String classroom, String day, String start, String end) {
+    public void showDialog(Activity activity, String id, String subject, String classroom, String day, String start, String end) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.edit_class_dialog);
 
-        Log.d("orarend ID", id);
-
         TextView title = dialog.findViewById(R.id.dialogTitle);
-        title.setText(msg);
+        title.setText("Edit " + subject);
 
         TextInputEditText classroomInput = dialog.findViewById(R.id.classClassroom);
         classroomInput.setText(classroom);
@@ -138,7 +136,7 @@ public class EditClassDialog {
             @Override
             public void onClick(View v) {
 
-                TimetableClass timetableClass = new TimetableClass(msg, classroomInput.getText().toString(), dayInput.getText().toString(), startInput.getText().toString(), endInput.getText().toString());
+                TimetableClass timetableClass = new TimetableClass(subject, classroomInput.getText().toString(), dayInput.getText().toString(), startInput.getText().toString(), endInput.getText().toString());
                 dbReference = FirebaseDatabase.getInstance().getReference();
                 dbReference.child("Classes").child(user.getUid() + "/" + id).setValue(timetableClass);
                 dialog.dismiss();

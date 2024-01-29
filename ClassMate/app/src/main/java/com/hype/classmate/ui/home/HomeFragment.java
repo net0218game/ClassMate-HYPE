@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
 
         currentClassRecyclerView = view.findViewById(R.id.currentClassRecyclerView);
         currentClassRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        
+
         currentClassRecyclerView.setAdapter(currentClassAdapter);
 
         todoRecyclerView = view.findViewById(R.id.homeTodoRecyclerView);
@@ -128,6 +128,7 @@ public class HomeFragment extends Fragment {
     public void getClasses() {
 
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 homeClassList.clear();
                 currentClassList.clear();
@@ -153,9 +154,8 @@ public class HomeFragment extends Fragment {
 
                             homeClassList.add(ora);
 
-                            if (isWithin(Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString(), Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString())) {
+                            if (isWithin(Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString(), Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString()) && !simpleDateFormat.format(date).equals("Saturday") && !simpleDateFormat.format(date).equals("Sunday")) {
                                 currentClassList.add(ora);
-                                Log.d("jelenlegi", Objects.requireNonNull(classDataSnapshot.child("subject").getValue()) + " Most van");
                             }
                         }
                     }
@@ -172,7 +172,7 @@ public class HomeFragment extends Fragment {
                     }
                 };
 
-                Collections.sort(homeClassList, myComparator);
+                homeClassList.sort(myComparator);
 
                 classRecyclerView.getAdapter().notifyDataSetChanged();
                 currentClassRecyclerView.getAdapter().notifyDataSetChanged();
@@ -196,6 +196,7 @@ public class HomeFragment extends Fragment {
 
     public void getTodoList() {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 homeTodoList.clear();
                 if (snapshot.child("Todo/" + user.getUid()).exists()) {

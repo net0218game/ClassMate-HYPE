@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/classColor"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#FF0000"
+            android:clickable="false" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/subjbectTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Matek"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/editClassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:src="@drawable/outline_edit_24" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/classroomTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_location_on_24"
+        android:drawablePadding="10dp"
+        android:text="30"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/dayTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_calendar_month_24"
+        android:drawablePadding="10dp"
+        android:text="Tuesday"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/startTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_access_time_24"
+        android:drawablePadding="10dp"
+        android:text="7:55 - 8:40"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:drawableStart="@drawable/outline_cancel_24"
+            android:drawableTint="@color/white"
+            android:drawableTintMode="multiply"
+            android:text="Close" />
+    </LinearLayout>
+
+</LinearLayout>

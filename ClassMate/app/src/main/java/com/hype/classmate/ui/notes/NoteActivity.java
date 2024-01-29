@@ -22,6 +22,8 @@ import com.hype.classmate.interfaces.NoteItem;
 import com.hype.classmate.interfaces.TimetableSubject;
 import com.hype.classmate.ui.AddSubjectActivity;
 
+import java.util.Objects;
+
 public class NoteActivity extends AppCompatActivity {
 
     ImageButton saveButton;
@@ -35,6 +37,16 @@ public class NoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note);
         saveButton = findViewById(R.id.saveNoteButton);
         mAuth = FirebaseAuth.getInstance();
+
+        titleEditText = findViewById(R.id.noteTitle);
+        bodyEditText = findViewById(R.id.noteBody);
+
+        Bundle b = getIntent().getExtras();
+        Log.d("jegyzetek", Objects.requireNonNull(b.getString("title")));
+
+        titleEditText.setText(Objects.requireNonNull(b.getString("title")));
+        bodyEditText.setText(Objects.requireNonNull(b.getString("body")));
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +68,6 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
-        titleEditText = findViewById(R.id.noteTitle);
-        bodyEditText = findViewById(R.id.noteBody);
+
     }
 }

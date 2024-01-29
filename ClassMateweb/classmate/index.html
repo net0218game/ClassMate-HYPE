@@ -1,87 +1,410 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en">
+<!--
+
+Page    : index / MobApp
+Version : 1.0
+Author  : Colorlib
+URI     : https://colorlib.com
+
+ -->
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ClassMate - HYPE</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Classmate">
+    <meta name="keywords" content="HTML5, bootstrap, mobile, app, landing, ios, android, responsive">
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+    <!-- Font -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="img/logo.png">
-
-    <script src="js/modernizr.js"></script> <!-- Modernizr -->
-
-    <title>ClassMate</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- Owl carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- Main css -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/icons/hype.gif">
 </head>
-<body>
-<header class="cd-header">
-    <div id="cd-logo"><img src="img/CLASSMATE_LOGO.png" alt="Logo"></div>
-    <div id="cd-action"><a href="https://play.google.com/store/apps/details?id=com.hype.classmate"
-                           class="btn">Download</a></div>
-</header>
 
-<main class="cd-main-content">
-    <div class="cd-product-intro">
-        <img src="img/CLASSMATE_LOGO.png" alt="ClassMate Logo">
-        <p>Click on the Start button to see the animated slideshow.</p>
-        <div class="cd-triggers">
-            <a href="https://play.google.com/store/apps/details?id=com.hype.classmate" class="btn">Download</a>
-            <a href="#cd-product-tour" class="btn salmon" data-type="cd-tour">Start</a>
+<body data-spy="scroll" data-target="#navbar" data-offset="30">
+
+<!-- Nav Menu -->
+
+<div class="nav-menu fixed-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-dark navbar-expand-lg">
+                    <a class="navbar-brand" href="index.html"><img src="images/icons/CLASSMATE_LOGO.png"
+                                                                   class="img-icon"
+                                                                   alt="logo"></a>
+                    
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link active" href="#home">KEZDŐLAP<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#features">FUNKCIÓK</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#gallery">GALÉRIA</a></li>
+                            <li class="nav-item"><a href="https://play.google.com/store/apps/details?id=com.hype.classmate"
+                                                    class="btn btn-outline-light my-3 my-sm-0 ml-lg-3">LETÖLTÉS</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
         </div>
-    </div> <!-- cd-product-intro -->
+    </div>
+</div>
 
-    <div id="cd-product-tour">
-        <ul>
-            <li class="cd-single-item cd-active">
-                <div class="cd-caption">
-                    <h2>Introducing: ClassMate</h2>
-                    <p>An online school companion to make your school life easier</p>
-                </div>
-                <div class="cd-image-container">
-                    <div>
-                        <img src="img/home-left.png" alt="Screen Preview 1">
 
+<header class="bg-gradient" id="home">
+    <div class="container mt-5">
+        <h1>ClassMate</h1>
+        <p class="tagline"><b>Együtt, a feledhetetlen siker útján.</b><br>Iskolai tervező alkalmazás, diákoktól
+            diákoknak.</p>
+    </div>
+    <div class="img-holder mt-3"><img src="images/phoneScreenshots/straight-home.png" alt="phone" class="img-fluid">
+    </div>
+</header>
+ <!--
+<div class="client-logos my-5">
+    <div class="container text-center">
+        <img src="images/client-logos.png" alt="client logos" class="img-fluid">
+    </div>
+</div> -->
+
+<div class="section light-bg" id="features">
+    <div class="container">
+        <div class="section-title">
+            <small>KIEMELT</small>
+            <h3>Legnagyobb előnyeink</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="card features">
+                    <div class="card-body">
+                        <div class="media">
+                            <span class="ti-face-smile gradient-fill ti-3x mr-3"></span>
+                            <div class="media-body">
+                                <h4 class="card-title">Tanulóktól tanulóknak</h4>
+                                <p class="card-text">Alkalmazásunkat saját, tanulói tapasztalataink és igényeink szerint
+                                    fejlesztettük</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card features">
+                    <div class="card-body">
+                        <div class="media">
+                            <span class="ti-brush gradient-fill ti-3x mr-3"></span>
+                            <div class="media-body">
+                                <h4 class="card-title">Letisztult</h4>
+                                <p class="card-text">Unod már a KRÉTA unalmas, egyszínű megjelenését? Válts <b>ClassMate</b>-re! </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card features">
+                    <div class="card-body">
+                        <div class="media">
+                            <span class="ti-book gradient-fill ti-3x mr-3"></span>
+                            <div class="media-body">
+                                <h4 class="card-title">Funkcionalitás</h4>
+                                <p class="card-text">Alkalmazásunkban megtalálhatod az iskolai élethez a legfontosabb funkciókat, melyek megkönnyítik felkészülést. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<!-- // end .section -->
+<div class="section">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-6">
+                <div class="box-icon"><img src="images/icons/logo.png   " alt="perspective phone"
+                                           class="img-fluid">
+                    </span></div>
+                <h2>Átlátható megjelenés, átható funkcionalitás.</h2>
+                <p class="mb-4">Letisztult, színes megjelenés a hatékonyságért, hasznos funkciók és könnyű
+                    kezelhetőség a lehető legnagyobb produktivitás érdekében. </p>
+            </div>
+        </div>
+        <div class="perspective-phone">
+            <img src="images/phoneScreenshots/tilted-timetable.png" alt="perspective phone" class="img-asd">
+        </div>
+    </div>
+
+</div>
+<!-- // end .section -->
+
+
+<div class="section light-bg">
+    <div class="container">
+        <div class="section-title">
+            <small>FUNKCIÓK</small>
+            <h3>Legyél produktívabb appunkal</h3>
+        </div>
+
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#communication">Órarend</a>
             </li>
-            <li class="cd-single-item cd-not-visible cd-move-right">
-                <div class="cd-caption">
-                    <h2>Timetable, Tasks & Notes:<br> All In One Place</h2>
-                    <p>ClassMate lets you add your own classes and events to your timetable. Add events connected to
-                        your classes and keep track of your tasks!
-                    </p>
-                </div>
-                <div class="cd-image-container">
-                    <div>
-                        <img src="img/Screenshot_20240116_182849.png" alt="Screen Preview 3">
-
-                    </div>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#schedule">Teendők</a>
             </li>
-            <li class="cd-single-item cd-not-visible cd-move-right">
-                <div class="cd-caption">
-                    <h2>Tasks</h2>
-                    <p> Easily manage your tasks with ClassMate!:D</p>
-                </div>
-                <div class="cd-image-container">
-                    <div>
-                        <img src="img/Screenshot_20240118_175456.png" alt="Screen Preview 3">
-
-                    </div>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#messages">Jegyzetek</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#livechat">Widgetek</a>
             </li>
         </ul>
-    </div> <!-- cd-product-tour -->
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="communication">
+                <div class="d-flex flex-column flex-lg-row">
+                    <img src="images/phoneScreenshots/tilted-timetable.png" alt="graphic"
+                         class="img-asd rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                    <div>
 
-    <div class="cd-slider-nav">
-        <a class="cd-prev" href="#0">Previous</a>
-        <a class="cd-next" href="#0">Next</a>
-    </div> <!-- cd-slider-nav -->
+                        <h2>Színes órarend</h2>
+                        <p class="lead">A KRÉTA órarend már lejárt lemez. Használj sajátot! </p>
+                        <p>Unod már a színtelen órarendeket? Unod már, hogy egy osztálycsoportból letöltött
+                            képernyőfotón keresgéled melyik teremben leszel?
+                            Itt a megoldás!
+                            Appunk lehetőséget nyújt arra, hogy létrehozz különböző tanórákat, s majd órarended szerint
+                            berendezd azokat.
+                            A létrehozott órákhoz hozzá tudod adni:
 
-    <div class="cd-loader"></div> <!-- top loading bar -->
-</main>
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/main.js"></script> <!-- Resource jQuery -->
+                        </p>
+
+                        <ul>
+                            <li>az adott tantárgyat tanító tanár nevét</li>
+                            <li>melyik teremben, előadóban tartják az órát</li>
+                            <li>egyéb megjegyzéseket is csatolhatsz.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="schedule">
+                <div class="d-flex flex-column flex-lg-row">
+                    <div>
+                        <h2>Tervezz előre okosan</h2>
+                        <p class="lead">Tartsd számon teendőidet! </p>
+                        <p>Vedd fel appunkba az egyes óráidhoz tartozó fontos dolgokat, házi feladatokat, beadandókat,
+                            esedékes dolgozatokat vagy bármilyen, az óráidhoz kapcsolódó teendő(ke)t, így soha többet
+                            nem lesz elmaradt leckéd vagy elfeledett dolgozatod.</p>
+                        <p> Alkalmazásunk külön-külön rendezi teendőidet, így mindig számon tudod tartani, hogy az
+                            elkövetkezendő napokon miből van házi feladatod, beadandód, délutáni teendőd vagy
+                            dolgozatod.
+                        </p>
+                    </div>
+                    <img src="images/screenshots/todo.png" alt="graphic"
+                         class="img-asd rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="messages">
+                <div class="d-flex flex-column flex-lg-row">
+                    <img src="images/screenshots/notes.png" alt="graphic"
+                         class="img-asd rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                    <div>
+                        <h2>Jegyzetek</h2>
+                        <p class="lead">Jegyzetelj, legyél naprakész! </p>
+                        <p>Holnap kirándulni mentek az osztállyal, 2 óra múlva össze kell pakolj minden fontos dolgot,
+                            de a papíralapú noteszed az iskolában felejtetted, ezért ötleted sincs mit kéne magaddal
+                            vinni?
+                            Semmi vész!
+                        </p>
+                        <p> Alkalmazásunkban lehetőséged van jegyzetek felvételére is!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="livechat">
+                <div class="d-flex flex-column flex-lg-row">
+                    <div>
+                        <h2>Widgetek és értesítések</h2>
+                        <p class="lead">Gyors hozzáférés a legfontosabb funkciókhoz</p>
+                        <p>Nagy nehezen kikerested, hogy hol lesz a következő órád, de az egységtelen szünetek miatt nem
+                            tudod, hogy mennyire kell siess?
+                            Ne keress tovább!
+                            Applikációnk erről értesítést küld minden óra kezdete előtt annyi perccel, amennyit
+                            beállítottál.
+                            A push értesítés tartalmazza:</p>
+                        <ul>
+                            <li> milyen órád lesz</li>
+                            <li> mikor kezdődik</li>
+                            <li> melyik teremben</li>
+                        </ul>
+                        <p> Ezenfelül alkalmazásunk délután, egy általad megadott időpontban emlékeztet a holnapi nap
+                            teendőire is.</p>
+                    </div>
+                    <img src="images/screenshots/widget.png" alt="graphic"
+                         class="img-asd rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- // end .section -->
+
+<div class="section">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="images/phoneScreenshots/straight-home.png" alt="dual phone" class="img-asdasd">
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <div>
+                    <div class="box-icon"><img src="images/icons/logo.png   " alt="perspective phone"
+                                               class="img-fluid"></div>
+                    <h2>Próbáld ki a ClassMate-et még ma!</h2>
+                    <p class="mb-4"></p>
+                    <a href="https://play.google.com/store/apps/details?id=com.hype.classmate" class="btn btn-primary">Letöltés</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- // end .section -->
+
+
+<div class="section light-bg">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 d-flex align-items-center">
+                <ul class="list-unstyled ui-steps">
+                    <li class="media">
+                        <div class="circle-icon mr-4">1</div>
+                        <div class="media-body">
+                            <h5>Hozd létre a fiókodat!</h5>
+                            <p>Csupán email címed, felhasználóneved és jelszavad megadásával létrehozhatod saját
+                                <b>ClassMate</b>
+                                fiókodat. Tedd meg most az első lépésed a feledhetetlen siker útján. </p>
+                        </div>
+                    </li>
+                    <li class="media my-4">
+                        <div class="circle-icon mr-4">2</div>
+                        <div class="media-body">
+                            <h5>Jelentkezz be!</h5>
+                            <p>Jelentkezz be a regisztrációnál megadott adatokkal.</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <div class="circle-icon mr-4">3</div>
+                        <div class="media-body">
+                            <h5>Vidd fel órarended és használd a ClassMate-et!</h5>
+                            <p>Töltsd fel órarended, ne feledd el felvenni házi feladataidat, teendőidet és használd a
+                                <b>ClassMate-et</b> a lehető legnagyobb produktivitás érdekében.</b></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <img src="images/phoneScreenshots/straight-register.png" alt="iphone" class="img-fluid">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- // end .section -->
+
+
+<div class="section light-bg" id="gallery">
+    <div class="container">
+        <div class="section-title">
+            <small>GALÉRIA</small>
+            <h3>Képernyőképek</h3>
+        </div>
+
+        <div class="img-gallery owl-carousel owl-theme">
+            <img src="images/screenshots/home.png" alt="image">
+            <img src="images/screenshots/timetable.png" alt="image">
+            <img src="images/screenshots/todo.png" alt="image">
+            <img src="images/screenshots/notes.png" alt="image">
+        </div>
+    </div>
+</div>
+
+<div class="section bg-gradient">
+    <div class="container">
+        <div class="call-to-action">
+            <div class="box-icon"><img src="images/icons/logo.png   " alt="perspective phone"
+                                               class="img-fluid"></div>
+            <h2>Töltsd le a ClassMate-et</h2>
+            <p class="tagline">Töltsd le a ClassMate-et és lépj rá a feledhetetlen siker útjára. <br> Elérhető Android platformon, a Play Store kínálatában.</p>
+            <div class="my-4">
+                <a href="https://play.google.com/store/apps/details?id=com.hype.classmate" class="btn btn-light"><img
+                        src="images/playicon.png" alt="icon"> Google play</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="light-bg py-5" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center text-lg-left">
+                <p class="mb-2"><span class="ti-location-pin mr-2"></span> 1485 Pacific St, Brooklyn, NY 11216 USA</p>
+                <div class=" d-block d-sm-inline-block">
+                    <p class="mb-2">
+                        <span class="ti-email mr-2"></span> <a class="mr-4" href="mailto:support@mobileapp.com">support@mobileapp.com</a>
+                    </p>
+                </div>
+                <div class="d-block d-sm-inline-block">
+                    <p class="mb-0">
+                        <span class="ti-headphone-alt mr-2"></span> <a href="tel:51836362800">518-3636-2800</a>
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="social-icons">
+                    <a href="#"><span class="ti-facebook"></span></a>
+                    <a href="#"><span class="ti-twitter-alt"></span></a>
+                    <a href="#"><span class="ti-instagram"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<footer class="my-5 text-center">
+    <!-- Copyright removal is not prohibited! -->
+    <p class="mb-2"><small>HYPE - COPYRIGHT © 2024. ALL RIGHTS RESERVED</small>
+    </p>
+</footer>
+
+<!-- jQuery and Bootstrap -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<!-- Plugins JS -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Custom JS -->
+<script src="js/script.js"></script>
+
 </body>
+
 </html>

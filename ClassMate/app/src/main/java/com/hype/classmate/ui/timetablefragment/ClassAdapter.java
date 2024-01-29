@@ -1,12 +1,17 @@
 package com.hype.classmate.ui.timetablefragment;
 
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.res.ColorStateList;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +19,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hype.classmate.R;
+import com.hype.classmate.ui.AddClassActivity;
 import com.hype.classmate.ui.dialog.EditClassDialog;
+import com.hype.classmate.ui.timetabletest.TestTimetableFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,10 +39,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView startTime, endTime, classroom, classTeacherTitle, classTitle, startTime2, endTime2;
         private final CardView classCard;
-
         private final Button currentClassColor;
         private final ProgressBar progressBar;
-
 
         public ViewHolder(View view) {
             super(view);
@@ -56,6 +62,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             int position = this.getAbsoluteAdapterPosition();
             // TODO: Open timetable fragment
             // https://developer.android.com/develop/ui/views/components/dialogs
+
+            Toast.makeText(v.getContext(), "Open timetable", Toast.LENGTH_SHORT).show();
         }
     }
 

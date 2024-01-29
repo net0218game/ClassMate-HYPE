@@ -21,6 +21,7 @@
         app:showFirstDayOfWeekFirst="true"
         app:showHourSeparator="true"
         app:showNowLine="true"
+        android:nestedScrollingEnabled="true"
         app:showNowLineDot="true"
         app:timeColumnTextSize="12sp" />
 
@@ -36,14 +37,5 @@
         android:layout_marginBottom="20dp"
         android:clickable="true"
         android:src="@drawable/baseline_add_24" />
-
-
-    <!--
-    <com.islandparadise14.mintable.MinTimeTableView
-        android:id="@+id/table"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:isFullWidth="true"
-        app:widthPadding="5" /> -->
 
 </RelativeLayout>

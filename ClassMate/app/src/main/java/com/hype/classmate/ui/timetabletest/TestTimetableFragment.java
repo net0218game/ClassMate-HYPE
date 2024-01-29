@@ -1,18 +1,12 @@
 package com.hype.classmate.ui.timetabletest;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,11 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewEntity;
-import com.alamkanak.weekview.WeekViewEvent;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,31 +25,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hype.classmate.R;
 import com.hype.classmate.ui.AddSubjectActivity;
-import com.islandparadise14.mintable.MinTimeTableView;
 import com.islandparadise14.mintable.model.ScheduleEntity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Arrays;
-import java.util.Formatter;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Objects;
 
 public class TestTimetableFragment extends Fragment {
 
-    private String[] day = {"Mon", "Tue", "Wen", "Thu", "Fri"};
     ArrayList<ArrayList<String>> orak = new ArrayList<ArrayList<String>>();
-    Integer classId = 0;
     FloatingActionButton addClassButton;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    ArrayList<ScheduleEntity> scheduleList = new ArrayList<>();
     String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     MyCustomPagingAdapter adapter = new MyCustomPagingAdapter();
     WeekView weekView;
@@ -124,15 +102,17 @@ public class TestTimetableFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 orak.clear();
+                events.clear();
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
                         String title = Objects.requireNonNull(classDataSnapshot.child("subject").getValue()).toString();
+                        Log.d("asdasdasd", title);
                         String subTitle = Objects.requireNonNull(classDataSnapshot.child("classroom").getValue()).toString();
                         String day = Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("day").getValue()).toString());
                         String color = Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString();
                         String[] startTimeString = Objects.requireNonNull(classDataSnapshot.child("start").getValue()).toString().split(":");
                         String[] endTimeString = Objects.requireNonNull(classDataSnapshot.child("end").getValue()).toString().split(":");
-                        classId += 1;
+                        long classId = Long.parseLong(Objects.requireNonNull(classDataSnapshot.getKey()));
 
                         Calendar startTime = Calendar.getInstance();
                         startTime.set(Calendar.DAY_OF_WEEK, Arrays.asList(days).indexOf(day) + 2);
@@ -181,6 +161,7 @@ public class TestTimetableFragment extends Fragment {
             // Day or week view
             if (weekView.getNumberOfVisibleDays() == 5) {
                 weekView.setNumberOfVisibleDays(1);
+                weekView.scrollToDate(Calendar.getInstance());
                 menu.getItem(0).setIcon(R.drawable.baseline_calendar_month_24);
             } else if (weekView.getNumberOfVisibleDays() == 1) {
                 weekView.setNumberOfVisibleDays(5);
