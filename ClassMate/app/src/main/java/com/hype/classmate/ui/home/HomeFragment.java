@@ -3,6 +3,7 @@ package com.hype.classmate.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,8 @@ public class HomeFragment extends Fragment {
     CardView classesCard, todoCard;
     Button updateWidgetsButton;
     LinearLayout emptyTodoList, emptyClassList;
+
+    final Handler ha = new Handler();
 
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,6 +119,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        ha.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //call function
+                getClasses();
+                ha.postDelayed(this, 60000);
+            }
+        }, 60000);
+
         // TODO: Onclick listener
         return view;
     }
@@ -124,6 +137,7 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
 
     public void getClasses() {
 
