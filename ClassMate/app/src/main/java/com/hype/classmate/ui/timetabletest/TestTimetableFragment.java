@@ -77,7 +77,6 @@ public class TestTimetableFragment extends Fragment {
         Calendar currentMonday = Calendar.getInstance();
         currentMonday.set(Calendar.DAY_OF_WEEK, 2);
         weekView.scrollToDate(currentMonday);
-        weekView.setMinDate(currentMonday);
 
         weekView.setMinHour(7);
         weekView.setMaxHour(15);

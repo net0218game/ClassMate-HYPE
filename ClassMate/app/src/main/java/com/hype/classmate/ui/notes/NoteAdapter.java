@@ -1,12 +1,14 @@
 package com.hype.classmate.ui.notes;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hype.classmate.MainActivity;
 import com.hype.classmate.R;
+import com.hype.classmate.ui.dialog.ClassDetailsDialog;
+import com.hype.classmate.ui.dialog.ShareDialog;
 
 import java.util.ArrayList;
 
@@ -33,6 +37,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, body;
         CardView noteCard;
+        ImageButton noteShareButton;
 
         public ViewHolder(View view) {
             super(view);
@@ -40,7 +45,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             title = view.findViewById(R.id.noteTitle);
             body = view.findViewById(R.id.noteBody);
             noteCard = view.findViewById(R.id.noteCard);
-
+            noteShareButton = view.findViewById(R.id.noteShareButton);
         }
 
         @Override
@@ -81,6 +86,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             }
         });
 
+        viewHolder.noteShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareDialog detailsDialog = new ShareDialog();
+                detailsDialog.showDialog((Activity) v.getContext(), localDataSet.get(position).get(2));
+            }
+        });
     }
 
     @Override

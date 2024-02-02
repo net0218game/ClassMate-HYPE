@@ -88,6 +88,7 @@ public class NotesFragment extends Fragment {
 
                         note.add(0, Objects.requireNonNull(classDataSnapshot.child("title").getValue()).toString());
                         note.add(1, Objects.requireNonNull(classDataSnapshot.child("body").getValue()).toString());
+                        note.add(2, Objects.requireNonNull(classDataSnapshot.getKey()));
 
                         noteList.add(note);
                     }

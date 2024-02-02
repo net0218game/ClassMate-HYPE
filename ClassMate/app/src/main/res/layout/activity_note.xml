@@ -41,7 +41,7 @@
             android:layout_margin="20dp"
             android:background="@null"
             android:gravity="start|top"
-            android:hint="Szia Szilard"
+            android:hint="Body"
             android:inputType="textMultiLine" />
     </LinearLayout>
 

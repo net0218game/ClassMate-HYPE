@@ -4,28 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_height="600dp"
+    android:layout_margin="10dp"
+    android:maxHeight="200dp"
     android:orientation="vertical"
-    android:layout_margin="10dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/dialogTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="Task Details"
-            android:textAlignment="center"
             android:textSize="30dp" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/closeButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
             android:src="@drawable/outline_cancel_24" />
     </LinearLayout>
 
@@ -38,7 +42,7 @@
         android:text="Title" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/todoTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/todo"
@@ -56,7 +60,7 @@
         android:text="Category" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/todoCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/outline_label_24"
@@ -74,7 +78,7 @@
         android:text="Subject" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/todoSubject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/baseline_menu_book_24"
@@ -92,7 +96,7 @@
         android:text="Due Date" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/todoDue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/baseline_calendar_month_24"
@@ -109,15 +113,21 @@
         android:layout_marginBottom="5dp"
         android:text="Description" />
 
-    <TextView
-        android:id="@+id/textView17"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/baseline_notes_24"
-        android:drawablePadding="10dp"
-        android:gravity="center_vertical"
-        android:text="Description"
-        android:textSize="16dp" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/todoDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_notes_24"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut sem nulla pharetra diam. Amet facilisis magna etiam tempor. Diam quis enim lobortis scelerisque. Mauris sit amet massa vitae tortor condimentum. Malesuada proin libero nunc consequat interdum varius sit amet. Etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus. Egestas tellus rutrum tellus pellentesque. Fringilla ut morbi tincidunt augue interdum velit euismod in. Vulputate odio ut enim blandit. Risus viverra adipiscing at in tellus integer feugiat scelerisque varius. Nec nam aliquam sem et tortor consequat id porta nibh. Elementum nibh tellus molestie nunc non blandit. Sit amet mauris commodo quis imperdiet. Imperdiet dui accumsan sit amet nulla facilisi."
+            android:textSize="16dp" />
+
+    </ScrollView>
 
 
 </LinearLayout>

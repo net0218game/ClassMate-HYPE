@@ -125,7 +125,7 @@ public class TodoFragment extends Fragment {
                         todo.add(3, Objects.requireNonNull(classDataSnapshot.child("dueDate").getValue()).toString());
                         todo.add(4, Objects.requireNonNull(classDataSnapshot.child("done").getValue()).toString());
                         todo.add(5, Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString());
-                        todo.add(6, Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("subject").getRef().getParent()).getKey()));
+                        todo.add(6, classDataSnapshot.getKey());
                         todo.add(7, Objects.requireNonNull(classDataSnapshot.child("category").getValue()).toString());
 
                         if (showDone) {

@@ -1,13 +1,8 @@
 package com.hype.classmate.ui.timetabletest;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEntity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,15 +11,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.hype.classmate.MainActivity;
-import com.hype.classmate.R;
 import com.hype.classmate.ui.dialog.ClassDetailsDialog;
 import com.hype.classmate.ui.dialog.EditClassDialog;
-import com.hype.classmate.ui.dialog.EditTodoDialog;
-import com.hype.classmate.ui.login.LoginActivity;
-
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Objects;
 
 public class MyCustomPagingAdapter extends WeekView.PagingAdapter<MyEvent> {
@@ -81,8 +69,6 @@ public class MyCustomPagingAdapter extends WeekView.PagingAdapter<MyEvent> {
     @Override
     public void onEventLongClick(MyEvent data) {
         super.onEventLongClick(data);
-        Toast.makeText(this.getContext(), "Edit Class",
-                Toast.LENGTH_SHORT).show();
         EditClassDialog editDialog = new EditClassDialog();
 
         FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -110,7 +96,5 @@ public class MyCustomPagingAdapter extends WeekView.PagingAdapter<MyEvent> {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-
     }
 }

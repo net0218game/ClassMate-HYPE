@@ -3,6 +3,7 @@ package com.hype.classmate.ui.todo;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.hype.classmate.R;
+import com.hype.classmate.ui.dialog.ClassDetailsDialog;
 import com.hype.classmate.ui.dialog.EditTodoDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hype.classmate.ui.dialog.TodoDetailsDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -91,7 +97,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") int position) {
         // Ertekek beallitasa a taskoknal
         viewHolder.title.setText(localDataSet.get(position).get(0));
         viewHolder.subject.setText(localDataSet.get(position).get(1));
@@ -111,6 +117,39 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         });
 
         viewHolder.todoCard.setTag(localDataSet.get(position).get(6));
+
+        viewHolder.todoCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TodoDetailsDialog todoDetailsDialog = new TodoDetailsDialog();
+                FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                    private String id, title, category, subject, dueDate, description, color;
+
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.child("Todo/" + user.getUid()).exists()) {
+                            for (DataSnapshot todoDataSnapshot : snapshot.child("Todo/" + user.getUid()).getChildren()) {
+                                if (Objects.equals(todoDataSnapshot.getKey(), localDataSet.get(position).get(6))) {
+
+                                    id = todoDataSnapshot.getKey();
+                                    title = Objects.requireNonNull(todoDataSnapshot.child("title").getValue()).toString();
+                                    category = Objects.requireNonNull(todoDataSnapshot.child("category").getValue()).toString();
+                                    subject = Objects.requireNonNull(Objects.requireNonNull(todoDataSnapshot.child("subject").getValue()).toString());
+                                    color = Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + todoDataSnapshot.child("subject").getValue()).child("color").getValue()).toString();
+                                    dueDate = Objects.requireNonNull(todoDataSnapshot.child("dueDate").getValue()).toString();
+                                    description = Objects.requireNonNull(todoDataSnapshot.child("description").getValue()).toString();
+                                }
+                            }
+                            todoDetailsDialog.showDialog((Activity) v.getContext(), id, title, category, subject, dueDate, description, color);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+            }
+        });
 
         // Checkbox kipipalasa ha a task mar keszen van (isDone == true)
         if (Objects.equals(localDataSet.get(position).get(4), "true")) {
