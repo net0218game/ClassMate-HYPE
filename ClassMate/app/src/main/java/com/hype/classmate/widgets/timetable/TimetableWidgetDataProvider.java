@@ -57,16 +57,8 @@ public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteVie
     public RemoteViews getViewAt(int position) {
         RemoteViews view = new RemoteViews(mContext.getPackageName(),
                 R.layout.home_class_item);
-        Log.d("timetablewidddgetdata", "ASDFASASDASDSDSASDASD");
 
         view.setTextViewText(R.id.homeClassItem, classList.get(position).toString());
-        Log.d("timetablewidddgetdata", classList.get(position).get(0));
-        /*
-        view.setTextViewText(R.id.classItemStart, classList.get(position).get(3));
-        view.setTextViewText(R.id.classItemEnd, classList.get(position).get(4));
-         */
-        Log.d("timetablewidddgetdata", "widget filled");
-        Log.d("timetablewidddgetdata", classList.toString());
 
         return view;
     }
@@ -116,8 +108,6 @@ public class TimetableWidgetDataProvider implements RemoteViewsService.RemoteVie
                             classList.add(ora);
                         }
                     }
-                    Log.d("timetablewidddgetdata", "data received");
-
                 }
                 final int COLUMN = 3;
                 Comparator<ArrayList<String>> myComparator = new Comparator<ArrayList<String>>() {

@@ -191,8 +191,6 @@ public class HomeFragment extends Fragment {
                 classRecyclerView.getAdapter().notifyDataSetChanged();
                 currentClassRecyclerView.getAdapter().notifyDataSetChanged();
 
-                Log.d("jelenlegi", currentClassList.toString());
-
                 if (homeClassList.isEmpty()) {
                     emptyClassList.setVisibility(View.VISIBLE);
                     classRecyclerView.setVisibility(View.GONE);

@@ -46,7 +46,6 @@ public class MyCustomPagingAdapter extends WeekView.PagingAdapter<MyEvent> {
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
                         if (Objects.equals(classDataSnapshot.getKey(), String.valueOf(data.getId()))) {
-                            Log.d("asdasdasd", Objects.requireNonNull(classDataSnapshot.getKey()));
                             id = classDataSnapshot.getKey();
                             subject = Objects.requireNonNull(classDataSnapshot.child("subject").getValue()).toString();
                             classroom = Objects.requireNonNull(classDataSnapshot.child("classroom").getValue()).toString();
@@ -78,7 +77,6 @@ public class MyCustomPagingAdapter extends WeekView.PagingAdapter<MyEvent> {
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
                         if (Objects.equals(classDataSnapshot.getKey(), String.valueOf(data.getId()))) {
-                            Log.d("asdasdasd", Objects.requireNonNull(classDataSnapshot.getKey()));
                             id = classDataSnapshot.getKey();
                             subject = Objects.requireNonNull(classDataSnapshot.child("subject").getValue()).toString();
                             classroom = Objects.requireNonNull(classDataSnapshot.child("classroom").getValue()).toString();

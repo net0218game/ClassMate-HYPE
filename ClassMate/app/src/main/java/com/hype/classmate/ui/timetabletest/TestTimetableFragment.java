@@ -105,7 +105,6 @@ public class TestTimetableFragment extends Fragment {
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {
                     for (DataSnapshot classDataSnapshot : snapshot.child("Classes/" + user.getUid()).getChildren()) {
                         String title = Objects.requireNonNull(classDataSnapshot.child("subject").getValue()).toString();
-                        Log.d("asdasdasd", title);
                         String subTitle = Objects.requireNonNull(classDataSnapshot.child("classroom").getValue()).toString();
                         String day = Objects.requireNonNull(Objects.requireNonNull(classDataSnapshot.child("day").getValue()).toString());
                         String color = Objects.requireNonNull(snapshot.child("Subjects/" + user.getUid() + "/" + classDataSnapshot.child("subject").getValue()).child("color").getValue()).toString();
@@ -124,7 +123,6 @@ public class TestTimetableFragment extends Fragment {
                         endTime.set(Calendar.MINUTE, Integer.parseInt(endTimeString[1]));
 
 
-                        Log.d("szin", color + " " + String.valueOf(Color.parseColor(color)));
 
                         events.add(new MyEvent(classId, title, subTitle, startTime, endTime, Color.parseColor(color)));
 

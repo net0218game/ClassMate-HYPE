@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,13 +39,11 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ViewHolder> 
     ArrayList<ArrayList<String>> localDataSet;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference();
-
     FirebaseUser user = mAuth.getCurrentUser();
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView shareItemUsername;
         Button shareItemShareButton;
-
 
         public ViewHolder(View view) {
             super(view);
@@ -82,7 +82,6 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ViewHolder> 
                     private String title, body;
                     private NoteItem myNoteItem;
 
-
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child("Notes/" + user.getUid()).exists()) {
                             for (DataSnapshot todoDataSnapshot : snapshot.child("Notes/" + user.getUid()).getChildren()) {
@@ -96,8 +95,14 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ViewHolder> 
                         myNoteItem = new NoteItem(title, body);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
                         String currentDateandTime = sdf.format(new Date());
-                        dbReference.child("Notes").child(localDataSet.get(position).get(0) + "/" + currentDateandTime).setValue(myNoteItem);
-                        Log.d("anyadat", title + " " + body);
+                        dbReference.child("Notes").child(localDataSet.get(position).get(0) + "/" + currentDateandTime).setValue(myNoteItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                // TODO: Close Share Dialog
+                                viewHolder.shareItemShareButton.setText("Sent");
+                                viewHolder.shareItemShareButton.setEnabled(false);
+                            }
+                        });
                     }
 
                     @Override

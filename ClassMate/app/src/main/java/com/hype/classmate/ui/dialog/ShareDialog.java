@@ -61,7 +61,6 @@ public class ShareDialog {
                         userList.clear();
                         for (DataSnapshot userDataSnapshot : snapshot.child("Users").getChildren()) {
                             if (Objects.requireNonNull(userDataSnapshot.child("name").getValue()).toString().equals(usernameInput.getText().toString())) {
-                                Log.d("anyadat", "te cigany");
                                 ArrayList<String> userCucc = new ArrayList<String>();
 
                                 userCucc.add(0, Objects.requireNonNull(userDataSnapshot.child("userId").getValue()).toString());
@@ -92,5 +91,4 @@ public class ShareDialog {
 
         dialog.show();
     }
-
 }

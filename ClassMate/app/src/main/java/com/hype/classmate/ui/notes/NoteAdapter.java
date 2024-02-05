@@ -18,10 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.hype.classmate.MainActivity;
 import com.hype.classmate.R;
-import com.hype.classmate.ui.dialog.ClassDetailsDialog;
 import com.hype.classmate.ui.dialog.ShareDialog;
 
 import java.util.ArrayList;
@@ -82,15 +79,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                 b.putString("body", localDataSet.get(position).get(1)); //Your id
                 intent.putExtras(b); //Put your id to your next Intent
                 v.getContext().startActivity(intent);
-                Log.d("jegyzetek", "katt");
             }
         });
 
         viewHolder.noteShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareDialog detailsDialog = new ShareDialog();
-                detailsDialog.showDialog((Activity) v.getContext(), localDataSet.get(position).get(2));
+                ShareDialog shareDialog = new ShareDialog();
+                shareDialog.showDialog((Activity) v.getContext(), localDataSet.get(position).get(2));
             }
         });
     }

@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         notificationManager.notify(reqCode, notificationBuilder.build()); // 0 is the request code, it should be unique id
-
-        Log.d("showNotification", "showNotification: " + reqCode);
     }
 
     public void updateWidget() {

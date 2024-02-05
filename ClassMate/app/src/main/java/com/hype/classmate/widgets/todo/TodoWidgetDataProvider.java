@@ -53,7 +53,6 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
         RemoteViews view = new RemoteViews(mContext.getPackageName(),
                 R.layout.home_todo_item);
         view.setTextViewText(R.id.homeTodoItem, todoList.get(position));
-        Log.d("todowidddgetdata", "widget filled");
 
         return view;
     }
@@ -88,7 +87,6 @@ public class TodoWidgetDataProvider implements RemoteViewsService.RemoteViewsFac
                             todoList.add(Objects.requireNonNull(classDataSnapshot.child("title").getValue()).toString());
                         }
                     }
-                    Log.d("todowidddgetdata", "data received");
                 }
             }
 

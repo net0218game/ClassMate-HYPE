@@ -94,12 +94,10 @@ public class RegisterActivity extends AppCompatActivity {
                                     dbReference.child("Users").child(user.getUid()).setValue(userAdapter).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Log.d("adatbazis", e.toString());
                                         }
                                     }).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Log.d("adatbazis", "DATABASE UPDATED");
                                         }
                                     });
 

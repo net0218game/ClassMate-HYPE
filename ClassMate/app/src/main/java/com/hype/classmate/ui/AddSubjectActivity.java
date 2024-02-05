@@ -129,7 +129,6 @@ public class AddSubjectActivity extends AppCompatActivity {
                         // color picker dialog
                         mDefaultColor = color;
                         mPickColorButton.setBackgroundColor(mDefaultColor);
-                        Log.d("color", String.format("#%06X", (0xFFFFFF & mDefaultColor)));
                     }
                 });
         colorPickerDialogue.show();
