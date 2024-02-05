@@ -162,7 +162,6 @@ public class EditClassDialog {
             }
         });
 
-
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +174,5 @@ public class EditClassDialog {
         });
 
         dialog.show();
-
     }
 }

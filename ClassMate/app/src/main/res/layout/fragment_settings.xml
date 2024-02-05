@@ -62,7 +62,6 @@
                 android:text="Profile"
                 android:textSize="20sp" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,15 +88,25 @@
                     android:enabled="false"
                     android:text="Change Email Address"
                     android:textColor="@color/color6" />
+
+                <TextView
+                    android:id="@+id/linkCopyUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/baseline_content_copy_24"
+                    android:drawablePadding="10dp"
+                    android:text="Copy Username" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/timetableTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:drawableLeft="@drawable/baseline_calendar_view_day_24"
                 android:drawablePadding="10dp"
-                android:layout_margin="10dp"
                 android:text="Timetable"
                 android:textSize="20sp" />
 
@@ -216,7 +225,7 @@
 
                 <TextView
                     android:id="@+id/linkWebApp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableLeft="@drawable/baseline_attachment_24"
@@ -225,7 +234,7 @@
 
                 <TextView
                     android:id="@+id/linkGooglePlay"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
@@ -235,7 +244,7 @@
 
                 <TextView
                     android:id="@+id/linkFeedback"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
@@ -245,7 +254,7 @@
 
                 <TextView
                     android:id="@+id/linkFileUp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
