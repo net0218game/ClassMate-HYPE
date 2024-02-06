@@ -1,19 +1,18 @@
 package com.hype.classmate.ui.timetabletest;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.alamkanak.weekview.WeekView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,18 +23,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hype.classmate.R;
+import com.hype.classmate.ui.AddClassActivity;
 import com.hype.classmate.ui.AddSubjectActivity;
-import com.islandparadise14.mintable.model.ScheduleEntity;
+import com.hype.classmate.ui.dialog.AddClassDialog;
+import com.hype.classmate.ui.dialog.AddSubjectDialog;
+import com.hype.classmate.ui.dialog.ClassDetailsDialog;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class TestTimetableFragment extends Fragment {
 
     ArrayList<ArrayList<String>> orak = new ArrayList<ArrayList<String>>();
-    FloatingActionButton addClassButton;
+    FloatingActionButton addClassButton, addSubjectButton;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     MyCustomPagingAdapter adapter = new MyCustomPagingAdapter();
@@ -62,12 +64,28 @@ public class TestTimetableFragment extends Fragment {
 
         weekView = view.findViewById(R.id.weekView);
         addClassButton = view.findViewById(R.id.addClassButton);
+        addSubjectButton = view.findViewById(R.id.addSubjectButton);
 
         addClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddSubjectActivity.class);
-                startActivity(intent);
+                if (addSubjectButton.getVisibility() == View.GONE) {
+                    addSubjectButton.setVisibility(View.VISIBLE);
+                } else if (addSubjectButton.getVisibility() == View.VISIBLE) {
+                    AddClassDialog addClassDialog = new AddClassDialog();
+                    addClassDialog.showDialog((Activity) getContext());
+                }
+            }
+        });
+
+        addSubjectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddSubjectDialog addSubjectDialog = new AddSubjectDialog();
+                addSubjectDialog.showDialog((Activity) getContext());
+
+                /*Intent intent = new Intent(getActivity(), AddSubjectActivity.class);
+                startActivity(intent);*/
             }
         });
 
@@ -121,7 +139,6 @@ public class TestTimetableFragment extends Fragment {
                         endTime.set(Calendar.DAY_OF_WEEK, Arrays.asList(days).indexOf(day) + 2);
                         endTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(endTimeString[0]));
                         endTime.set(Calendar.MINUTE, Integer.parseInt(endTimeString[1]));
-
 
 
                         events.add(new MyEvent(classId, title, subTitle, startTime, endTime, Color.parseColor(color)));

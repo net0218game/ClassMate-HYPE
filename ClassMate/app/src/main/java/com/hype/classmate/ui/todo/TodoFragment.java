@@ -1,8 +1,11 @@
 package com.hype.classmate.ui.todo;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -21,9 +24,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
 import com.hype.classmate.R;
+import com.hype.classmate.ui.AddClassActivity;
 import com.hype.classmate.ui.AddTodoActivity;
+import com.hype.classmate.ui.dialog.AddSubjectDialog;
+import com.hype.classmate.ui.dialog.AddTodoDialog;
 import com.hype.classmate.widgets.todo.TodoWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +54,8 @@ public class TodoFragment extends Fragment {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     RecyclerView todayRecyclerView, pastRecyclerView, futureRecyclerView;
     FloatingActionButton addTodoButton;
+    DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference();
+
     ArrayList<ArrayList<String>> todayTodoList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> pastTodoList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> futureTodoList = new ArrayList<ArrayList<String>>();
@@ -92,8 +102,12 @@ public class TodoFragment extends Fragment {
         addTodoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddTodoActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getActivity(), AddTodoActivity.class);
+                startActivity(intent);*/
+
+                AddTodoDialog addTodoDialog = new AddTodoDialog();
+                addTodoDialog.showDialog((Activity) getContext());
+
             }
         });
 
@@ -221,9 +235,31 @@ public class TodoFragment extends Fragment {
             }
 
         } else if (item.getItemId() == R.id.todo_archiveDone_action) {
+            Toast.makeText(getContext(), "Feature Coming Soon:)", Toast.LENGTH_SHORT).show();
+
             // Archive Done Tasks
         } else if (item.getItemId() == R.id.todo_delete_action) {
             // Delete All Tasks
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setCancelable(true);
+            builder.setTitle("Delete all tasks?");
+            builder.setMessage("Are you sure you want to delete all of your tasks?\nThis action can not be undone and all of your notes will be lost.");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface alertDialog, int which) {
+                    dbReference.child("Todo").child(user.getUid()).removeValue();
+                    alertDialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface alertDialog, int which) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
 
         return super.onOptionsItemSelected(item);

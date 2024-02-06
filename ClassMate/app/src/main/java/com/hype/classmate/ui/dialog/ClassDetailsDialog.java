@@ -19,7 +19,7 @@ public class ClassDetailsDialog {
     public void showDialog(Activity activity, String id, String subject, String classroom, String day, String start, String end, String color) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.class_details_dialog);
 
         subjbectTextView = dialog.findViewById(R.id.subjbectTextView);
