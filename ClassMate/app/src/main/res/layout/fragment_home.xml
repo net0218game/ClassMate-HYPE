@@ -97,6 +97,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/upcomingTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/baseline_menu_book_24"
@@ -118,7 +119,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="You have no upcoming classes"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                         <ImageView
                             android:id="@+id/imageView9"
@@ -126,7 +128,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
                             android:src="@drawable/outline_cancel_24"
-                            app:tint="#184165" />
+                            app:tint="@color/white" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -175,14 +177,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="You have no tasks to do"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
                             android:src="@drawable/outline_cancel_24"
-                            app:tint="#184165" />
+                            app:tint="@color/white" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView

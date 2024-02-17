@@ -52,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_timetable, R.id.navigation_notes, R.id.navigation_settings, R.id.navigation_todo)
-                .build();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_timetable, R.id.navigation_notes, R.id.navigation_settings, R.id.navigation_todo).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         int reqCode = 1;
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        showNotification(this, "SZIA SZILAAARD", "Ez egy ClassMate ertesites!!! Szia Szilard!!!!", intent, reqCode);
+        //showNotification(this, "SZIA SZILAAARD", "Ez egy ClassMate ertesites!!! Szia Szilard!!!!", intent, reqCode);
 
     }
 
@@ -70,13 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public static void showNotification(Context context, String title, String message, Intent intent, int reqCode) {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, reqCode, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
         String CHANNEL_ID = "channel_name";// The id of the channel.
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setContentIntent(pendingIntent);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID).setSmallIcon(R.drawable.ic_notifications_black_24dp).setContentTitle(title).setContentText(message).setAutoCancel(true).setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)).setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Channel Name";// The user-visible name of the channel.

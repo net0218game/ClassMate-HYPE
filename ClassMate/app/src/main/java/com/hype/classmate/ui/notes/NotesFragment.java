@@ -68,7 +68,7 @@ public class NotesFragment extends Fragment {
         addNoteButton = view.findViewById(R.id.addNoteButton);
         noNotes = view.findViewById(R.id.noNotes);
 
-        getTodayTodoList();
+        getNotes();
         setHasOptionsMenu(true);
 
         notesRecyclerView = view.findViewById(R.id.notes_recycler_view);
@@ -90,7 +90,7 @@ public class NotesFragment extends Fragment {
         return view;
     }
 
-    public void getTodayTodoList() {
+    public void getNotes() {
         FirebaseDatabase.getInstance().getReference().addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 noteList.clear();

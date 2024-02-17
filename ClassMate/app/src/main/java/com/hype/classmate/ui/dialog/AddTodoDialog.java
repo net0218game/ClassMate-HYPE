@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -32,6 +33,7 @@ import com.hype.classmate.ui.AddTodoActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -44,8 +46,9 @@ public class AddTodoDialog {
     TextInputEditText dateInput, todoTitleInput, noteInput;
     AutoCompleteTextView categorySpinner, subjectSpinner;
     Button addTodoButton;
+    String subject = null;
 
-    public void showDialog(Activity activity) {
+    public void showDialog(Activity activity, String subject) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -54,8 +57,12 @@ public class AddTodoDialog {
         subjectSpinner = dialog.findViewById(R.id.subjectTextView);
         categorySpinner = dialog.findViewById(R.id.todoCategory);
 
+        if (subject != null) {
+            this.subject = subject;
+        }
+
         ArrayList<String> subjectList = getSubjectList();
-        ArrayList<String> dayList = getCategoryList();
+        ArrayList<String> dayList = new ArrayList<>(Arrays.asList(dialog.getContext().getResources().getStringArray(R.array.categories)));
 
         //Create adapter
         ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(dialog.getContext(), R.layout.spinner_item, subjectList);
@@ -72,6 +79,7 @@ public class AddTodoDialog {
         dateInput = dialog.findViewById(R.id.todoDueDate);
         dateInput.setInputType(InputType.TYPE_NULL);
         dateInput.setKeyListener(null);
+
         dateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +104,6 @@ public class AddTodoDialog {
                 datePickerDialog.show();
             }
         });
-
         addTodoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +131,7 @@ public class AddTodoDialog {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(dialog.getContext(), "Task Added", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                     });
                 } else {
@@ -135,20 +143,11 @@ public class AddTodoDialog {
         dialog.show();
     }
 
-    private ArrayList<String> getCategoryList() {
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add("Homework");
-        categories.add("Event");
-        categories.add("Exam");
-        return categories;
-    }
-
     private ArrayList<String> getSubjectList() {
         ArrayList<String> subjects = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             FirebaseDatabase.getInstance().getReference("Subjects/" + user.getUid()).addValueEventListener(new ValueEventListener() {
-
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -162,6 +161,8 @@ public class AddTodoDialog {
                 }
             });
         }
+
         return subjects;
+
     }
 }

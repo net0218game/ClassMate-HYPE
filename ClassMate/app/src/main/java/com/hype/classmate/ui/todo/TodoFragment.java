@@ -106,7 +106,7 @@ public class TodoFragment extends Fragment {
                 startActivity(intent);*/
 
                 AddTodoDialog addTodoDialog = new AddTodoDialog();
-                addTodoDialog.showDialog((Activity) getContext());
+                addTodoDialog.showDialog((Activity) getContext(), null);
 
             }
         });

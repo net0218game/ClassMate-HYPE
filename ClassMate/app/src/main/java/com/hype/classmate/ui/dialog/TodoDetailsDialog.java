@@ -3,6 +3,7 @@ package com.hype.classmate.ui.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,7 +14,6 @@ import com.hype.classmate.R;
 
 public class TodoDetailsDialog {
     TextView todoTitle, todoCategory, todoSubject, todoDue, todoDescription;
-    ImageView closeButton;
 
     public void showDialog(Activity activity, String id, String title, String category, String subject, String dueDate, String description, String color) {
         final Dialog dialog = new Dialog(activity);
@@ -35,14 +35,7 @@ public class TodoDetailsDialog {
 
         todoDescription = dialog.findViewById(R.id.todoDescription);
         todoDescription.setText(description);
-
-        closeButton = dialog.findViewById(R.id.closeButton);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        todoDescription.setMovementMethod(new ScrollingMovementMethod());
 
         dialog.show();
     }

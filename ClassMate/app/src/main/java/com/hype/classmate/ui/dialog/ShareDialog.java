@@ -38,7 +38,7 @@ public class ShareDialog {
     public void showDialog(Activity activity, String id) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.share_dialog);
 
         usernameInput = dialog.findViewById(R.id.usernameInput);

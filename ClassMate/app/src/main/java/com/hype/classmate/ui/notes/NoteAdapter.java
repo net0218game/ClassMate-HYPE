@@ -77,8 +77,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), NoteActivity.class);
                 Bundle b = new Bundle();
-                b.putString("title", localDataSet.get(position).get(0)); //Your id
-                b.putString("body", localDataSet.get(position).get(1)); //Your id
+                b.putString("noteID", localDataSet.get(position).get(2)); //Your id
                 intent.putExtras(b); //Put your id to your next Intent
                 v.getContext().startActivity(intent);
             }

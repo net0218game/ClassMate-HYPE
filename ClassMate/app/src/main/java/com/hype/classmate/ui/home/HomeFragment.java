@@ -46,12 +46,11 @@ public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    ;
     RecyclerView classRecyclerView, todoRecyclerView, currentClassRecyclerView;
     ArrayList<ArrayList<String>> homeClassList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> currentClassList = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> homeTodoList = new ArrayList<ArrayList<String>>();
-    TextView title;
+    TextView title, upcomingTitle;
     CardView classesCard, todoCard;
     Button updateWidgetsButton;
     LinearLayout emptyTodoList, emptyClassList;
@@ -86,6 +85,7 @@ public class HomeFragment extends Fragment {
         emptyClassList = view.findViewById(R.id.emptyClasses);
 
         title = view.findViewById(R.id.homeTitle);
+        upcomingTitle = view.findViewById(R.id.upcomingTitle);
 
         if (user != null) {
             getClasses();
@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 int reqCode = 1;
                 Intent intent = new Intent(getContext(), MainActivity.class);
-                MainActivity.showNotification(getContext(), "SZIA SZILAAARD", "MUKODIK!!!Ez egy ClassMate ertesites!!! Szia Szilard!!!!", intent, reqCode);
+                //MainActivity.showNotification(getContext(), "SZIA SZILAAARD", "MUKODIK!!!Ez egy ClassMate ertesites!!! Szia Szilard!!!!", intent, reqCode);
             }
         });
 
@@ -151,7 +151,11 @@ public class HomeFragment extends Fragment {
                 Date date = new Date();
                 String day = simpleDateFormat.format(date);
                 if (day.equals("Saturday") || day.equals("Sunday")) {
+
                     day = "Monday";
+                    upcomingTitle.setText("Next Week");
+                } else {
+                    upcomingTitle.setText("Upcoming Classes");
                 }
 
                 if (snapshot.child("Subjects/" + user.getUid()).exists()) {

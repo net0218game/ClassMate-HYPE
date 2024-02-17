@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hype.classmate.R;
 import com.hype.classmate.interfaces.TimetableClass;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,8 +82,20 @@ public class AddClassDialog {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         // on below line we are setting selected time
                         // in our text view.
-                        startInput.setText(hourOfDay + ":" + minute);
+                        try {
+                            String time = new SimpleDateFormat("HH:mm").format(new SimpleDateFormat("HH:mm").parse(hourOfDay + ":" + minute));
+                            startInput.setText(time);
 
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                            calendar.set(Calendar.MINUTE, minute);
+
+                            calendar.add(Calendar.MINUTE, dialog.getContext().getResources().getInteger(R.integer.classDuration));
+                            String endTime = new SimpleDateFormat("HH:mm").format(new SimpleDateFormat("HH:mm").parse(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)));
+                            endInput.setText(endTime);
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }, hour, minute, true);
 
@@ -108,7 +122,14 @@ public class AddClassDialog {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         // on below line we are setting selected time
                         // in our text view.
-                        endInput.setText(hourOfDay + ":" + minute);
+
+                        try {
+                            String time = new SimpleDateFormat("HH:mm").format(new SimpleDateFormat("HH:mm").parse(hourOfDay + ":" + minute));
+                            endInput.setText(time);
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                 }, hour, minute, true);
                 // at last we are calling show to
@@ -169,8 +190,6 @@ public class AddClassDialog {
                 }
             }
         });
-
-
         dialog.show();
     }
 

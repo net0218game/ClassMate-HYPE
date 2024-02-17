@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="300dp"
-    android:layout_height="600dp"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:maxHeight="200dp"
     android:orientation="vertical"
@@ -25,12 +25,6 @@
             android:text="Task Details"
             android:textSize="30dp" />
 
-        <ImageView
-            android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:src="@drawable/outline_cancel_24" />
     </LinearLayout>
 
     <TextView
@@ -113,21 +107,17 @@
         android:layout_marginBottom="5dp"
         android:text="Description" />
 
-    <ScrollView
+    <TextView
+        android:id="@+id/todoDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/todoDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/baseline_notes_24"
-            android:drawablePadding="10dp"
-            android:gravity="center_vertical"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut sem nulla pharetra diam. Amet facilisis magna etiam tempor. Diam quis enim lobortis scelerisque. Mauris sit amet massa vitae tortor condimentum. Malesuada proin libero nunc consequat interdum varius sit amet. Etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus. Egestas tellus rutrum tellus pellentesque. Fringilla ut morbi tincidunt augue interdum velit euismod in. Vulputate odio ut enim blandit. Risus viverra adipiscing at in tellus integer feugiat scelerisque varius. Nec nam aliquam sem et tortor consequat id porta nibh. Elementum nibh tellus molestie nunc non blandit. Sit amet mauris commodo quis imperdiet. Imperdiet dui accumsan sit amet nulla facilisi."
-            android:textSize="16dp" />
-
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_notes_24"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:maxHeight="150dp"
+        android:scrollbars="vertical"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut sem nulla pharetra diam. Amet facilisis magna etiam tempor. Diam quis enim lobortis scelerisque. Mauris sit amet massa vitae tortor condimentum. Malesuada proin libero nunc consequat interdum varius sit amet. Etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus. Egestas tellus rutrum tellus pellentesque. Fringilla ut morbi tincidunt augue interdum velit euismod in. Vulputate odio ut enim blandit. Risus viverra adipiscing at in tellus integer feugiat scelerisque varius. Nec nam aliquam sem et tortor consequat id porta nibh. Elementum nibh tellus molestie nunc non blandit. Sit amet mauris commodo quis imperdiet. Imperdiet dui accumsan sit amet nulla facilisi."
+        android:textSize="16dp" />
 
 
 </LinearLayout>

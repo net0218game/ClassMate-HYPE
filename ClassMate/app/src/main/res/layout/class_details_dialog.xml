@@ -44,6 +44,14 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/teacherTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/round_person_24"
+        android:drawablePadding="10dp"
+        android:text="LBG"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/classroomTextView"

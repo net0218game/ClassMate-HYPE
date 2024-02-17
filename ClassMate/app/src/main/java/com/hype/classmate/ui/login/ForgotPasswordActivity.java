@@ -33,8 +33,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         emailInput = findViewById(R.id.loginEmailInput);
         loginButton = findViewById(R.id.loginButton);
         status = findViewById(R.id.emailStatus);

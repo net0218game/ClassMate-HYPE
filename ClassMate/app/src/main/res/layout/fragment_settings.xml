@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:drawableLeft="@drawable/baseline_calendar_view_day_24"
+                android:drawableLeft="@drawable/baseline_calendar_month_24"
                 android:drawablePadding="10dp"
                 android:text="Timetable"
                 android:textSize="20sp" />
@@ -129,16 +129,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:text="Show Saturday"
+                    android:text="Show Weekend"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-                <Switch
-                    android:id="@+id/sundaySwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:text="Show Sunday"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

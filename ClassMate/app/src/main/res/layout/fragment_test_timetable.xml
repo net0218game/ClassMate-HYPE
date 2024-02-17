@@ -16,13 +16,13 @@
         android:nestedScrollingEnabled="true"
         app:defaultEventColor="@color/colorPrimary"
         app:fontFamily="@font/baloo_tamma_2_medium"
-        app:hourHeight="40dp"
+        app:hourHeight="100dp"
         app:numberOfVisibleDays="5"
-        app:showCurrentTimeFirst="true"
-        app:showFirstDayOfWeekFirst="true"
         app:showHourSeparator="true"
         app:showNowLine="true"
         app:showNowLineDot="true"
+        app:showWeekNumber="true"
+        app:timeColumnHoursInterval="1"
         app:timeColumnTextSize="12sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

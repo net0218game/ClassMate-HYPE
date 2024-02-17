@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/todo_viewmode_action"
-        android:icon="@drawable/baseline_check_box_24"
+        android:icon="@drawable/baseline_check_box_outline_blank_24"
         android:iconTint="@color/color7"
         android:title="Show Done Tasks"
         app:showAsAction="always" />

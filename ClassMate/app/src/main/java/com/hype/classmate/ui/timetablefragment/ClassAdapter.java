@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.hype.classmate.R;
 import com.hype.classmate.ui.AddClassActivity;
+import com.hype.classmate.ui.dialog.AddTodoDialog;
 import com.hype.classmate.ui.dialog.EditClassDialog;
 import com.hype.classmate.ui.timetabletest.TestTimetableFragment;
 
@@ -62,8 +63,6 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             int position = this.getAbsoluteAdapterPosition();
             // TODO: Open timetable fragment
             // https://developer.android.com/develop/ui/views/components/dialogs
-
-            Toast.makeText(v.getContext(), "Open timetable", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -75,8 +74,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.current_class, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.current_class, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -84,7 +82,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     // Replace the contents of a view (invoked by the layout manager)
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
         // Get element from your dataset at this position and replace the contents of the view with that element
         viewHolder.classTitle.setText(localDataSet.get(position).get(0));
@@ -97,7 +95,13 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         viewHolder.progressBar.setProgress(progress(localDataSet.get(position).get(3), localDataSet.get(position).get(4)));
         viewHolder.progressBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor(localDataSet.get(position).get(1))));
         viewHolder.currentClassColor.setBackgroundColor(Color.parseColor(localDataSet.get(position).get(1)));
-        viewHolder.classCard.setOnClickListener(viewHolder);
+        viewHolder.classCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddTodoDialog addTodoDialog = new AddTodoDialog();
+                addTodoDialog.showDialog((Activity) v.getContext(), localDataSet.get(position).get(0));
+            }
+        });
     }
 
     public static Integer progress(String startSH, String stopSH) {

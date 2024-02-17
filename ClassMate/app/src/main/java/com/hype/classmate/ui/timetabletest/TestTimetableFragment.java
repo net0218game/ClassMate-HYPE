@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.alamkanak.weekview.WeekView;
@@ -56,6 +57,12 @@ public class TestTimetableFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        timetable();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_test_timetable, container, false);
@@ -94,24 +101,15 @@ public class TestTimetableFragment extends Fragment {
 
         Calendar currentMonday = Calendar.getInstance();
         currentMonday.set(Calendar.DAY_OF_WEEK, 2);
-        weekView.scrollToDate(currentMonday);
-
-        weekView.setMinHour(7);
-        weekView.setMaxHour(15);
+        currentMonday.set(Calendar.HOUR_OF_DAY, 9);
+        weekView.scrollToDateTime(currentMonday);
+        weekView.setMinDate(currentMonday);
 
         currentMonday.add(Calendar.DAY_OF_WEEK, 6);
         weekView.setMaxDate(currentMonday);
 
         weekView.setAdapter(adapter);
 
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_WEEK, 2);
-
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(Calendar.DAY_OF_WEEK, 2);
-        endTime.add(Calendar.HOUR_OF_DAY, 2);
-
-        timetable();
         return view;
     }
 

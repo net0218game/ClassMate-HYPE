@@ -41,7 +41,7 @@ public class EditClassDialog {
     public void showDialog(Activity activity, String id, String subject, String classroom, String day, String start, String end) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.edit_class_dialog);
 
         TextView title = dialog.findViewById(R.id.dialogTitle);

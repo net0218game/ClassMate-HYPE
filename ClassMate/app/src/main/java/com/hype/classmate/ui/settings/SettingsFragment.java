@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hype.classmate.R;
+import com.hype.classmate.ui.login.ForgotPasswordActivity;
 import com.hype.classmate.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -35,6 +36,7 @@ public class SettingsFragment extends Fragment {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     TextView usernameTextView;
     TextView linkWebApp, linkGooglePlay, linkFeedback, linkFileUp;
+    Button changePasswordButton;
 
 
     public static SettingsFragment newInstance() {
@@ -42,8 +44,7 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         Button loginBtn = view.findViewById(R.id.loginButton);
@@ -55,6 +56,15 @@ public class SettingsFragment extends Fragment {
         linkGooglePlay = view.findViewById(R.id.linkGooglePlay);
         linkFeedback = view.findViewById(R.id.linkFeedback);
         linkFileUp = view.findViewById(R.id.linkFileUp);
+        changePasswordButton = view.findViewById(R.id.changePasswordButton);
+
+        changePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
 
         linkWebApp.setOnClickListener(new View.OnClickListener() {
             @Override

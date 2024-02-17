@@ -3,6 +3,7 @@ package com.hype.classmate.ui.todo;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,10 +74,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
             // https://developer.android.com/develop/ui/views/components/dialogs
 
             EditTodoDialog alert = new EditTodoDialog();
-            alert.showDialog((Activity) v.getContext(), this.todoCard.getTag().toString(),
-                    this.title.getText().toString(), this.title.getText().toString(),
-                    this.category.getText().toString(), this.subject.getText().toString(),
-                    this.dueDate.getText().toString(), this.description.getText().toString());
+            alert.showDialog((Activity) v.getContext(), this.todoCard.getTag().toString(), this.title.getText().toString(), this.title.getText().toString(), this.category.getText().toString(), this.subject.getText().toString(), this.dueDate.getText().toString(), this.description.getText().toString());
         }
     }
 
@@ -88,8 +86,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.todo_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.todo_item, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -152,9 +149,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         });
 
         // Checkbox kipipalasa ha a task mar keszen van (isDone == true)
-        if (Objects.equals(localDataSet.get(position).get(4), "true")) {
-            viewHolder.isDone.setChecked(true);
-        }
+        viewHolder.isDone.setChecked(Objects.equals(localDataSet.get(position).get(4), "true"));
     }
 
     @Override

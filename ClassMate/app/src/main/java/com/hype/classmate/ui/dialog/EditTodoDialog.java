@@ -40,7 +40,7 @@ public class EditTodoDialog {
     public void showDialog(Activity activity, String id, String msg, String title, String category, String subject, String date, String description) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.edit_todo_dialog);
 
         TextView dialogTitle = dialog.findViewById(R.id.dialogTitle);

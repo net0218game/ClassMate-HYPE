@@ -13,10 +13,10 @@ import android.widget.Toast;
 import com.hype.classmate.R;
 
 public class ClassDetailsDialog {
-    TextView subjbectTextView, classroomTextView, dayTextView, startTextView;
+    TextView subjbectTextView, classroomTextView, dayTextView, startTextView, teacherTextView;
     Button classColor;
 
-    public void showDialog(Activity activity, String id, String subject, String classroom, String day, String start, String end, String color) {
+    public void showDialog(Activity activity, String id, String subject, String classroom, String day, String start, String end, String color, String teacher) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -24,6 +24,9 @@ public class ClassDetailsDialog {
 
         subjbectTextView = dialog.findViewById(R.id.subjbectTextView);
         subjbectTextView.setText(subject);
+
+        teacherTextView = dialog.findViewById(R.id.teacherTextView);
+        teacherTextView.setText(teacher);
 
         classroomTextView = dialog.findViewById(R.id.classroomTextView);
         classroomTextView.setText(classroom);
