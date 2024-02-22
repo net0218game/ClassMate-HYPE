@@ -5,17 +5,17 @@
     android:id="@+id/container"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:layout_margin="10dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/dialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="Edit Task"
         android:textAlignment="center"
-        android:layout_marginBottom="20dp"
         android:textSize="30dp" />
 
 
@@ -40,8 +40,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/outline_label_24"
-        android:hint="Category">
+        android:hint="Category"
+        app:startIconDrawable="@drawable/outline_label_24">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/todoCategory"
@@ -57,8 +57,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/baseline_menu_book_24"
-        android:hint="Subject">
+        android:hint="Subject"
+        app:startIconDrawable="@drawable/baseline_menu_book_24">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/subjectTextView"
@@ -100,17 +100,26 @@
             android:selectAllOnFocus="true"
             android:singleLine="false" />
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"></LinearLayout>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/deleteTaskButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Delete Task"
+        android:textColor="#FF0000" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/textView"
@@ -181,10 +190,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
             android:drawableLeft="@drawable/outline_edit_24"
             android:drawableTint="@color/white"
-            android:layout_marginLeft="20dp"
             android:text="Edit Task" />
 
 

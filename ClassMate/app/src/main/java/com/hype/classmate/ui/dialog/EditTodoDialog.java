@@ -4,8 +4,10 @@ import static java.util.Arrays.asList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.text.InputType;
 import android.view.View;
 import android.view.Window;
@@ -105,8 +107,36 @@ public class EditTodoDialog {
                 dialog.dismiss();
             }
         });
+
+        TextView deleteClassButton = dialog.findViewById(R.id.deleteTaskButton);
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+        deleteClassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(dialog.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Delete " + title + " Task?");
+                builder.setMessage("Are you sure you want to delete " + title + " task?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface alertDialog, int which) {
+                        dbReference = FirebaseDatabase.getInstance().getReference();
+                        dbReference.child("Todo").child(user.getUid() + "/" + id).removeValue();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface alertDialog, int which) {
+                        alertDialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

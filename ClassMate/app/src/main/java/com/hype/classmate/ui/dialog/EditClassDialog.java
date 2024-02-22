@@ -67,7 +67,6 @@ public class EditClassDialog {
         endInput.setInputType(InputType.TYPE_NULL);
         endInput.setKeyListener(null);
 
-
         startInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

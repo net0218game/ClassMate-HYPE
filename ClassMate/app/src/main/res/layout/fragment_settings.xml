@@ -23,7 +23,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/round_person_24" />
+                android:src="@drawable/hype" />
 
             <TextView
                 android:id="@+id/usernameTextView"
@@ -54,7 +54,7 @@
 
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:drawableLeft="@drawable/round_person_24"
@@ -150,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:enabled="false"
+                        android:gravity="right"
                         android:hint="45"
                         android:inputType="numberSigned" />
 
